@@ -14,7 +14,12 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Roboto;
-    background-color: #e6e6e6;
+}
+
+.main{
+    background-color: white;
+    height: 100%;
+    color: black;
 }
 
 .wrapper{
@@ -22,4 +27,52 @@
     padding-right: 5rem;
     padding-top: 2rem;
     height: 100%;
+}
+
+li{
+    list-style: none;
+}
+
+a:visited{
+    color: unset;
+}
+
+.dark-bg{
+    background-color: #232424;
+    color: white;
+
+    &::placeholder{
+        color: white;
+    }
+}
+
+.dark-on-bg{
+    background-color: transparent;
+    color: white;
+}
+
+.dark-hover{
+    &:hover{
+        background-color: #424242;
+    }
+}
+
+.light-bg{
+    background-color: white;
+    color: #232424;
+
+    &::placeholder{
+        color: #232424;
+    }
+}
+
+.light-on-bg{
+    background-color: transparent;
+    color: white;
+}
+
+.light-hover{
+    &:hover{
+        background-color: #dfdbdb;
+    }
 }

@@ -11,11 +11,14 @@ import {setSettings} from "./settings"
 import axios from 'axios'
 import {motion} from "framer-motion"
 import { t } from 'i18next'
+import { useSelector } from 'react-redux'
 
 
 function Home({addToFavorited, addToCart}) {
   const [popularItemsToDisplay, setPopularItemsToDisplay] = useState([])
   const [sliderDisplayArray, setSliderDisplayArray] = useState([])
+
+  const theme = useSelector(state => state.ui.theme)
 
   useEffect(() => {
     for (let i = 0; i < popularItemsToDisplay.length; i++) {
@@ -59,7 +62,7 @@ function Home({addToFavorited, addToCart}) {
 
 
   return (
-    <div className='main home'>
+    <div className={`main home ${theme}-bg`}>
       <motion.div
         initial={{opacity: 0}} 
         animate={{opacity: 1}}

@@ -24,6 +24,8 @@ function App() {
   const cart = useSelector(state => state.user.cart)
   const favItemsObj = useSelector(state => state.user.favorited)
   const favItemsList = Object.values(favItemsObj)
+
+  const theme = useSelector(state => state.ui.theme)
   
   const dispatch = useDispatch()
 
@@ -182,7 +184,7 @@ function App() {
     <div className="app">
       <Header i18n={i18n} itemsState={itemsState} setFadeScreen={setFadeScreen} changeLanguage={changeLanguage} t={t} />
       <motion.div 
-        className="main"
+        className={`main ${theme}-bg`}
         animate={{filter: FadeScreen ? "brightness(50%)": "brightness(100%)"}}
         transition={{duration: 0.3}}
       >

@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const SearchCardItem = ({item, setSearchValue, setSearchItems}) => {
   const image = item.pictures[0]
   const name = item.name
+
+  const theme = useSelector(state => state.ui.theme)
 
   return (
     <motion.span
@@ -16,7 +19,7 @@ const SearchCardItem = ({item, setSearchValue, setSearchItems}) => {
       <Link
         to={`/items/${item.id}`}
         onClick={() => {setSearchValue(""); setSearchItems([])}} 
-        className='search-card'
+        className={`search-card ${theme}-hover ${theme}-bg`}
       >
           {/* <img src={require(`../images/clothes/${image}`)}/> */}
           <p>{name}</p>

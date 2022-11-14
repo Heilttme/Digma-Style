@@ -3,11 +3,12 @@ import {createSlice} from "@reduxjs/toolkit"
 const uiSlice = createSlice({
     name: "ui",
     initialState: {
-        language: "ru",
-        theme: "white"
+        theme: "light"
     },
     reducers: {
-        
+        changeTheme(state, action) {
+            state.theme = action.payload
+        }
     }
 })
 

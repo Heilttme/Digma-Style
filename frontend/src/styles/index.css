@@ -14,6 +14,28 @@ header nav {
   width: 85%;
   padding: 1.2rem;
 }
+header nav .theme-toggler-wrapper {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+header nav .theme-toggler-wrapper .container {
+  position: relative;
+  width: 50px;
+  height: 24px;
+  background-color: #232424;
+  border-radius: 40px;
+}
+header nav .theme-toggler-wrapper .container .ball {
+  position: absolute;
+  left: 0.2rem;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50%;
+}
 header nav .ul-header {
   display: flex;
   justify-content: space-between;
@@ -25,12 +47,8 @@ header nav .ul-header .search a {
   transition: all 0.1s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
-}
-header nav .ul-header .search a:hover {
-  background-color: #dfdbdb;
 }
 header nav .ul-header .search .categories {
   display: flex;
@@ -38,14 +56,12 @@ header nav .ul-header .search .categories {
   position: absolute;
   padding-top: 1.5rem;
   top: 1.5rem;
-  background: transparent;
 }
 header nav .ul-header .search .categories .header-category {
   text-align: center;
   text-decoration: none;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
-  color: black;
   font-size: 1.3em;
 }
 header nav .ul-header .search .categories .category-wrapper {
@@ -88,15 +104,9 @@ header nav .ul-header .search .ul-search .search-container .search-items .search
   width: 199px;
   text-align: left;
   text-overflow: ellipsis;
-  background-color: #dfdfdf;
-}
-header nav .ul-header .search .ul-search .search-container .search-items .search-card:hover {
-  background-color: #dfdbdb;
-}
-header nav .ul-header .search .ul-search .search-container .search-items .search-card p {
-  background: transparent;
 }
 header nav .ul-header .search .ul-search .search-container .li-magnifier {
+  cursor: pointer;
   background: transparent;
   position: absolute;
   right: 0.4rem;
@@ -139,7 +149,6 @@ header nav .ul-header .top-nav-content .logo {
 }
 header nav .ul-header .top-nav-content a {
   text-decoration: none;
-  color: black;
 }
 header nav .ul-header .login-language-card-liked ul {
   width: 80%;
@@ -193,7 +202,6 @@ header nav .ul-header .login-language-card-liked ul li .cta-like, header nav .ul
 }
 header nav .ul-header .login-language-card-liked ul li .cta-like:hover, header nav .ul-header .login-language-card-liked ul li .cta-cart:hover {
   border-radius: 50%;
-  background-color: #dfdbdb;
 }
 header nav .ul-header .login-language-card-liked ul li .cta-like img, header nav .ul-header .login-language-card-liked ul li .cta-cart img {
   background: transparent;
@@ -219,12 +227,8 @@ header nav .ul-header .login-language-card-liked ul li .user-dropdown li {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
-}
-header nav .ul-header .login-language-card-liked ul li .user-dropdown li:hover {
-  background-color: #dfdbdb;
 }
 header nav .ul-header .login-language-card-liked ul li .user-dropdown li a {
   background: transparent;
@@ -238,14 +242,9 @@ header nav .ul-header .login-language-card-liked .login {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
 }
-header nav .ul-header .login-language-card-liked .login:hover {
-  background-color: #dfdbdb;
-}
-
 .home .popular-items .slick-slider {
   margin-top: 2rem;
   padding-left: 2rem;
@@ -384,7 +383,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
   background-color: #242323;
@@ -393,7 +391,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   margin-top: 1rem;
 }
 .home .additional .additional-card .text-col a:hover {
-  background-color: #dfdbdb;
   background-color: #424242;
 }
 .home .additional .additional-card img {
@@ -560,7 +557,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
   background-color: #242323;
@@ -572,7 +568,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   justify-content: center;
 }
 .item .info .make-order button:hover {
-  background-color: #dfdbdb;
   background-color: #424242;
 }
 .item .info .make-order button h3 {
@@ -908,14 +903,12 @@ header nav .ul-header .login-language-card-liked .login:hover {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
   background-color: #242323;
   color: white;
 }
 .cart .empty-cart .right-col .cta-buttons a:hover {
-  background-color: #dfdbdb;
   background-color: #424242;
 }
 .cart .head {
@@ -1128,7 +1121,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
   background-color: #242323;
@@ -1141,7 +1133,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   font-size: 1.2em;
 }
 .cart .summary button:hover {
-  background-color: #dfdbdb;
   background-color: #424242;
 }
 
@@ -1307,14 +1298,12 @@ header nav .ul-header .login-language-card-liked .login:hover {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
   background-color: #242323;
   color: white;
 }
 .empty-favorites .right-col .cta-buttons a:hover {
-  background-color: #dfdbdb;
   background-color: #424242;
 }
 
@@ -1335,7 +1324,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
-  color: black;
   display: inline-block;
   cursor: pointer;
   background-color: #242323;
@@ -1345,7 +1333,6 @@ header nav .ul-header .login-language-card-liked .login:hover {
   padding: 0.4rem 1.6rem;
 }
 .search-menu .filters-wrapper .filters-header .clear-filters:hover {
-  background-color: #dfdbdb;
   background-color: #424242;
 }
 .search-menu .filters-wrapper .filters {
@@ -1568,7 +1555,12 @@ header nav .ul-header .login-language-card-liked .login:hover {
   padding: 0;
   box-sizing: border-box;
   font-family: Roboto;
-  background-color: #e6e6e6;
+}
+
+.main {
+  background-color: white;
+  height: 100%;
+  color: black;
 }
 
 .wrapper {
@@ -1576,4 +1568,58 @@ header nav .ul-header .login-language-card-liked .login:hover {
   padding-right: 5rem;
   padding-top: 2rem;
   height: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+a:visited {
+  color: unset;
+}
+
+.dark-bg {
+  background-color: #232424;
+  color: white;
+}
+.dark-bg::-moz-placeholder {
+  color: white;
+}
+.dark-bg:-ms-input-placeholder {
+  color: white;
+}
+.dark-bg::placeholder {
+  color: white;
+}
+
+.dark-on-bg {
+  background-color: transparent;
+  color: white;
+}
+
+.dark-hover:hover {
+  background-color: #424242;
+}
+
+.light-bg {
+  background-color: white;
+  color: #232424;
+}
+.light-bg::-moz-placeholder {
+  color: #232424;
+}
+.light-bg:-ms-input-placeholder {
+  color: #232424;
+}
+.light-bg::placeholder {
+  color: #232424;
+}
+
+.light-on-bg {
+  background-color: transparent;
+  color: white;
+}
+
+.light-hover:hover {
+  background-color: #dfdbdb;
 }/*# sourceMappingURL=index.css.map */
