@@ -119,6 +119,7 @@
         background: transparent;
         margin-bottom: .2rem;
         .image{
+            color: white;
             background: transparent;
             width: 200px;
             position: relative;
@@ -178,7 +179,7 @@
             a{
                 margin-top: 1rem;
                 width: unset;
-                @include button(false, #242323);
+                @include button(true, #242323);
             }
         }
     }

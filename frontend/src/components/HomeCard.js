@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import heart from "../images/heart.svg"
 import filledHeart from "../images/filled_heart.svg"
-import {AnimatePresence, motion} from "framer-motion"
-import { useDispatch, useSelector } from "react-redux"
-import axios from 'axios'
-import { userActions } from '../store/userSlice'
+import { motion } from "framer-motion"
+import { useSelector } from "react-redux"
 
 function HomeCard({item, addToFavorited}) {
   const imgUrl = item.pictures[0]
   const brand = item.brand
   const name = item.name
   const priceUSD = item.price
-  const priceRUB = item.price
   const id = item.id
   const favorited = useSelector(state => state.user.favorited)
   const favItemsList = Object.values(favorited)
+  const theme = useSelector(state => state.ui.theme)
 
   const [itemHovered, setItemHovered] = useState(false)
   const [heartHovered, setHeartHovered] = useState(false)
@@ -38,7 +36,7 @@ function HomeCard({item, addToFavorited}) {
     <Link 
       onClick={heartHovered ? (e) => e.preventDefault() : null} 
       to={`/items/${id}`} 
-      className='home-card'
+      className={`home-card ${theme}-bg`}
     >
       <div onMouseEnter={() => setItemHovered(true)} onMouseLeave={() => setItemHovered(false)} className='image'>
         <img className='cloth-item' src={require(`../images/clothes/${imgUrl}`)}></img>

@@ -32,7 +32,6 @@
                 min-height: 400px;
                 display: flex;
                 flex-direction: column;
-                color: black;
                 text-decoration: none;
                 width: 90%;
                 
@@ -107,7 +106,7 @@
 
                 .text-info{
                     h1{
-                        color: #4a4a4a;
+                        // color: #4a4a4a;
                         font-weight: 600;
                         letter-spacing: 2px;
                         font-size: 1.65em;
@@ -117,14 +116,14 @@
                         font-size: 1.4em;
                         font-weight: 200;
                         margin-top: .2rem;
-                        color: #333333;
+                        // color: #333333;
                     }
 
                     h4{
                         font-size: 1.5em;
                         margin-top: .4rem;
                         font-weight: 200;
-                        color: #333333;
+                        // color: #333333;
                     }
                 }
             }

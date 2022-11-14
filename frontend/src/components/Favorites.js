@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Navigate } from 'react-router'
 import brokenHeart from "../images/broken_heart.svg"
 import Loading from './Loading'
+import { t } from 'i18next'
 
 const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
   const itemsObj = useSelector(state => state.user.favorited)
@@ -29,7 +30,7 @@ const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
   if (!itemsList.length) {
     return loadingDots ? <Loading/> :
       <>
-        <h1 className='head'>Your favorites</h1>
+        <h1 className='head'>{t("YourFavorites")}</h1>
         <div>
           <EmptyFavorited/>
         </div>
@@ -43,7 +44,7 @@ const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
   return (
     <>
       <div className='favorited'>
-          <h1 className='head'>Your favorites</h1>
+          <h1 className='head'>{t("YourFavorites")}</h1>
           {
             itemsList.length
               ?
@@ -71,9 +72,9 @@ const EmptyFavorited = () => {
             <img width={96} src={brokenHeart}/>
         </div>
         <div className='right-col'>
-            <p>Whoops... it looks like your favorites are empty</p>
+            <p>{t("WhoopsEmptyFavorites")}</p>
             <div className='cta-buttons'>
-                <a href='#'>Browse items</a>
+                <a href='#'>{t("BrowseItems")}</a>
             </div>
         </div>
     </div>

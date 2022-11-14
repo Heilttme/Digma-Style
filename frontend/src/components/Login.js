@@ -24,6 +24,8 @@ export const Login = () => {
 
   const counter = useSelector(state => state.user.count)
 
+  const theme = useSelector(state => state.ui.theme)
+
   const changeFormData = e => {
     const {name, value} = e.target
     setFormData(prev => ({
@@ -78,6 +80,7 @@ export const Login = () => {
                   name='email'
                   onChange={e => changeFormData(e)}
                   id="email"
+                  className={`${theme}-bg`}
                   value={formData.email}
                   onFocus={() => setEmailFocus(true)}
                   onBlur={() => setEmailFocus(false)}
@@ -92,6 +95,7 @@ export const Login = () => {
                   name='password'
                   id="password"
                   type="password"
+                  className={`${theme}-bg`}
                   value={formData.password}
                   onFocus={() => setPasswordFocus(true)}
                   onBlur={() => setPasswordFocus(false)}

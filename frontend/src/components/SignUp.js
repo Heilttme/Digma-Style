@@ -25,6 +25,7 @@ export const SignUp = () => {
     const [passwordFocus, setPasswordFocus] = useState(false)
     const [usernameFocus, setUsernameFocus] = useState(false)
 
+    const theme = useSelector(state => state.ui.theme)
 
     const changeFormData = e => {
     const {name, value} = e.target
@@ -88,6 +89,7 @@ export const SignUp = () => {
                         name='email'
                         onChange={e => changeFormData(e)}
                         id="email"
+                        className={`${theme}-bg`}
                         value={formData.email}
                         onFocus={() => setEmailFocus(true)}
                         onBlur={() => setEmailFocus(false)}
@@ -101,6 +103,7 @@ export const SignUp = () => {
                         name='username'
                         onChange={e => changeFormData(e)}
                         id="username"
+                        className={`${theme}-bg`}
                         value={formData.username}
                         onFocus={() => setUsernameFocus(true)}
                         onBlur={() => setUsernameFocus(false)}
@@ -115,6 +118,7 @@ export const SignUp = () => {
                         name='password'
                         id="password"
                         type="password"
+                        className={`${theme}-bg`}
                         value={formData.password}
                         onFocus={() => setPasswordFocus(true)}
                         onBlur={() => setPasswordFocus(false)}

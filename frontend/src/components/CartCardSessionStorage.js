@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { v4 as uuidv4 } from 'uuid'
 import ArrowSelect from './ArrowSelect'
 import { t } from 'i18next'
+import { useSelector } from 'react-redux'
 
 export const CartCardSessionStorage = ({item, setCartItems, removeItem, cartItems}) => {
   const [interManualCount, setInterManualCount] = useState(item.quantity)
@@ -11,6 +12,8 @@ export const CartCardSessionStorage = ({item, setCartItems, removeItem, cartItem
   const [exited, setExited] = useState(false)
   const [sizesShown, setSizesShown] = useState(false)
   const [newSize, setNewSize] = useState(item.size)
+
+  const theme = useSelector(state => state.ui.theme)
 
   const setQuantityManually = (value) => {
     let quantityValue = value === "" ? 1 : value
@@ -43,8 +46,6 @@ export const CartCardSessionStorage = ({item, setCartItems, removeItem, cartItem
       removeItem(item.id, item.size)
     }, 400)
   }
-
-  // console.log(cartItems);
 
   return (
     <AnimatePresence>
@@ -106,17 +107,17 @@ export const CartCardSessionStorage = ({item, setCartItems, removeItem, cartItem
               </div>
             </div>
             <div className='change-quantity'>
-                <button onClick={changeClickQuantityDec}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+                <button className={`quantity ${theme}-bg`} onClick={changeClickQuantityDec}>
+                  <svg fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
                 </button>
-                <input type="number" maxLength="2" onBlur={commitManualChange} onChange={e => setQuantityManually(e.target.value)} value={interManualCount}/>
-                <button onClick={changeClickQuantityInc}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+                <input type="number" maxLength="2" onBlur={commitManualChange} onChange={e => setQuantityManually(e.target.value)} value={interManualCount} className={`${theme}-bg`}/>
+                <button className={`quantity ${theme}-bg`} onClick={changeClickQuantityInc}>
+                  <svg fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
                 </button>
             </div>
             <h1 className='price'>${item.price}</h1>
-            <button className='remove' onClick={() => removeFromDomAnimation()}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+            <button className={`remove ${theme}-bg ${theme}-hover`} onClick={() => removeFromDomAnimation()}>
+              <svg fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
             </button>
         </div>
       </motion.div>

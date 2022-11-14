@@ -3,6 +3,7 @@
     padding: .6rem 1.5rem;
     text-decoration: none;
     display: inline-block;
+    outline: none;
     cursor: pointer;
 
     @if ($backgroundColor != none){
@@ -17,7 +18,7 @@
     }
 
     @if ($isBorder){
-        border: 1px solid black;
+        border: 1px #404040 solid;
     }
 }
 

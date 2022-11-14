@@ -8,6 +8,7 @@ const uiSlice = createSlice({
     reducers: {
         changeTheme(state, action) {
             state.theme = action.payload
+            localStorage.setItem("theme", action.payload)
         }
     }
 })

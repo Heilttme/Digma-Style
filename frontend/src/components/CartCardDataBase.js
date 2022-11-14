@@ -15,6 +15,8 @@ const CartCardDataBase = ({item, setNewSizeBackEnd, changeQuantityStateBackEndDe
 
   const email = useSelector(state => state.user.email)
 
+  const theme = useSelector(state => state.ui.theme)
+
   const setQuantityManually = (value) => {
     let quantityValue = value === "" ? 1 : value
     quantityValue = parseInt(quantityValue) > 1 ? parseInt(quantityValue) : 1
@@ -80,17 +82,17 @@ const CartCardDataBase = ({item, setNewSizeBackEnd, changeQuantityStateBackEndDe
               </div>
             </div>
             <div className='change-quantity'>
-                <button onClick={changeClickQuantityDec}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+                <button className={`quantity ${theme}-bg`} onClick={changeClickQuantityDec}>
+                  <svg fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
                 </button>
-                <input type="number" onBlur={() => changeQuantityManuallyBackEnd(item, interManualCount)} onChange={e => setQuantityManually(e.target.value)} value={interManualCount}/>
-                <button onClick={changeClickQuantityInc}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
+                <input type="number" onBlur={() => changeQuantityManuallyBackEnd(item, interManualCount)} onChange={e => setQuantityManually(e.target.value)} value={interManualCount} className={`${theme}-bg`}/>
+                <button className={`quantity ${theme}-bg`} onClick={changeClickQuantityInc}>
+                  <svg fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
                 </button>
             </div>
             <h1 className='price'>${item.price}</h1>
             <button className='remove' onClick={removeFromDomAnimation}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
+              <svg fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 10h24v4h-24z"/></svg>
             </button>
         </div>
       </motion.div>

@@ -32,6 +32,8 @@ function Item({addToCart, addToFavorited, cartAnimated, cartCancelAnimated, favo
 
   const isLoggedIn = useSelector(state => state.user.isLoggedin)
 
+  const theme = useSelector(state => state.ui.theme)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -118,7 +120,7 @@ function Item({addToCart, addToFavorited, cartAnimated, cartCancelAnimated, favo
         </div>
             <button
               onClick={() => addToCart({...itemData, size: itemData.curSize})}
-              className='cart-btn'>
+              className={`cart-btn`}>
                 <motion.div 
                   animate={cartAnimated ? {x: -200} : {}}
                   transition={{x: {type: "spring", duration: .5}}}

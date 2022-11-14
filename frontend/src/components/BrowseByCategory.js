@@ -5,6 +5,7 @@ import ArrowSelect from './ArrowSelect'
 import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
 import { t } from "i18next"
+import { useSelector } from 'react-redux';
 
 const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
   const [queryItems, setQueryItems] = useState([])
@@ -16,6 +17,8 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
     prices: {start: null, end: null},
   })
   const params = useParams()
+
+  const theme = useSelector(state => state.ui.theme)
 
   const [categoryShown, setCategoryShown] = useState(false)
   const [brandShown, setBrandShown] = useState(false)
@@ -98,7 +101,7 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
             </div>
             <div className='filters'>
               <div className='filter-container'>
-                <button className='filter-button' onClick={() => setCategoryShown(prev => !prev)}>
+                <button className={`filter-button ${theme}-bg ${theme}-hover`} onClick={() => setCategoryShown(prev => !prev)}>
                   {t("Category")}
                   <ArrowSelect shownValue={categoryShown} setShownValue={setCategoryShown} insetInlineEnd={"24px"} insetBlockStart={"4px"} />
                 </button>
@@ -135,7 +138,7 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
                 </motion.div>
               </div>
               <div className='filter-container'>
-                <button className='filter-button' onClick={() => setBrandShown(prev => !prev)}>
+                <button className={`filter-button ${theme}-bg ${theme}-hover`} onClick={() => setBrandShown(prev => !prev)}>
                   {t("Brand")}
                   <ArrowSelect shownValue={brandShown} setShownValue={setBrandShown} insetInlineEnd={"24px"} insetBlockStart={"4px"} />
                 </button>
@@ -172,7 +175,7 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
                 </motion.div>
               </div>
               <div className='filter-container'>
-                <button className='filter-button' onClick={() => setColourShown(prev => !prev)}> 
+                <button className={`filter-button ${theme}-bg ${theme}-hover`} onClick={() => setColourShown(prev => !prev)}> 
                   {t("Colour")}
                   <ArrowSelect shownValue={colourShown} setShownValue={setColourShown} insetInlineEnd={"24px"} insetBlockStart={"4px"} />
                 </button>
@@ -209,7 +212,7 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
                 </motion.div>
               </div>
               <div className='filter-container'>
-                <button className='filter-button' onClick={() => setPriceShown(prev => !prev)}>
+                <button className={`filter-button ${theme}-bg ${theme}-hover`} onClick={() => setPriceShown(prev => !prev)}>
                   {t("Price")}
                   <ArrowSelect shownValue={priceShown} setShownValue={setPriceShown} insetInlineEnd={"24px"} insetBlockStart={"4px"} />
                 </button>
@@ -219,7 +222,7 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
                   className='filter-options price'
                 >
                   <input
-                    className="price-input"
+                    className={`price-input ${theme}-bg`}
                     type="number"
                     name="min"
                     onBlur={e => e.target.value = ""}
@@ -227,7 +230,7 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
                     onChange={(e) => setFilterOptions(prev => (e.target.value.split('e').join('') < prev.prices.end) && e.target.value.split('e').join('') ?  ({...prev, prices: {...prev.prices, start: parseInt(e.target.value.split('e').join(''))}}) : prev)}
                   />
                   <input
-                    className="price-input"
+                    className={`price-input ${theme}-bg`}
                     type="number"
                     name="min"
                     onBlur={e => e.target.value = ""}

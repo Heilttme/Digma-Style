@@ -111,6 +111,12 @@
             padding-top: .5rem;
             color: white;
             margin-right: .2rem;
+            border: 1px #404040 solid;
+            transition: all .2s ease-in-out;
+
+            &:hover{
+                background-color: #424242;
+            }
 
             .arrow-wrapper{
                 position: absolute;
@@ -145,10 +151,16 @@
             }
 
             .options{
-                background-color: inherit;
+                margin-top: .4rem;
+                background-color: #242323;
+                border: #404040 1px solid;
                 
                 option{
-                    background-color: inherit;
+                    transition: all .2s ease-in-out;
+
+                    &:hover{
+                        background-color: #424242;
+                    }
                 }
 
             }

@@ -7,6 +7,7 @@ import { userActions } from "./store/userSlice";
 import axios from "axios";
 import BrowseByCategory from "./components/BrowseByCategory";
 import { useTranslation } from "react-i18next"
+import { uiActions } from "./store/uiSlice";
 
 function App() {
   const [FadeScreen, setFadeScreen] = useState(false)
@@ -34,6 +35,8 @@ function App() {
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang)
   }
+
+  useEffect(() => dispatch(uiActions.changeTheme(localStorage.getItem("theme"))), [])
 
   useEffect(() => {
     const resAuth = axios.post("/authentication/login/", {login: "login"}, {withCredentials: true})
