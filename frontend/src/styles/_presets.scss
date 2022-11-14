@@ -1,0 +1,41 @@
+@mixin button($isBorder: false, $backgroundColor: none, $duration: .2s){
+    transition: all $duration ease-in-out;
+    padding: .6rem 1.5rem;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    cursor: pointer;
+
+    @if ($backgroundColor != none){
+        background-color: $backgroundColor;
+        color: white;
+    }
+
+    &:hover{
+        background-color: #dfdbdb;
+
+        @if ($backgroundColor != none){
+            background-color: #424242;
+        }
+    }
+
+    @if ($isBorder){
+        border: 1px solid black;
+    }
+}
+
+
+@mixin custom-select($width, $height){
+    width: $width;
+    height: $height;
+    background-color: #242323;
+    user-select: none;
+
+    option{
+        background-color: inherit;
+        cursor: pointer;
+        padding-top: .1rem;
+        padding-bottom: .1rem;
+    }
+
+}

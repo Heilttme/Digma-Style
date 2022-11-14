@@ -1,0 +1,185 @@
+.favorited{
+    margin-bottom: 10rem;
+    position: relative;
+
+    .head{
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .grid-list-items{
+        width: 70%;
+        margin: 0 auto;
+        display: grid;
+        place-content: center;
+        grid-gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    a{
+        display: block;
+        color: black;
+        text-decoration: none;
+        width: 300px;
+        
+        .image{
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 1rem;
+            position: relative;
+            
+            .cloth-item{
+                width: 100%;
+                transition: all .35s ease-in-out;
+
+                &:hover{
+                    scale: 1.2;
+                }
+            }
+
+            .buttons{
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                background: transparent;
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+
+                button{
+                    position: relative;
+                    transition: all .2s ease-in-out;
+                    border: none;
+                    border-radius: 50%;
+                    padding: .6rem;
+                    cursor: pointer;
+                    background-color: #dfdbdb;
+                    z-index: 100;
+
+                    .filled{
+                        background: transparent;
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, calc(-50% - 2px));
+                    }
+                    
+                    &:hover{
+                        background-color: #c3bbbb;
+                        
+                        img{
+                            background-color: inherit;
+                        }
+                    }
+
+                    img{
+                        background: transparent;
+                    }
+                }
+            }
+        }
+
+        .text-info{
+            h3{
+                font-size: 1em;
+                font-weight: 200;
+                margin-top: .2rem;
+            }
+
+            h4{
+                font-size: 1.5em;
+                margin-top: .4rem;
+            }
+        }
+    }
+}
+
+.removed-wrapper{
+    position: relative;
+    background: transparent;
+}
+
+.removed-items{
+    background: transparent;
+    position: fixed;
+    right: 2rem;
+    bottom: 20rem;
+    float: right;
+    user-select: none;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    max-height: 60%;
+
+    &::-webkit-scrollbar { 
+        display: none;
+    }
+
+    .pop-up-item{
+        background: transparent;
+        margin-bottom: .2rem;
+        .image{
+            background: transparent;
+            width: 200px;
+            position: relative;
+        }
+        
+        button{
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            border: none;
+            padding: .5rem;
+            border-radius: 50%;
+            
+            .filled{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, calc(-50% - 2px));
+            }
+
+            img{
+                background: transparent;
+            }
+        }
+
+        .progress-bar{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 3.5px;
+            background-color: rgb(79, 79, 250);
+        }
+    }
+}
+
+.head{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.empty-favorites{
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin: 0 auto;
+    margin-bottom: 40rem;
+
+    .right-col{
+        text-align: right;
+
+        p{
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .cta-buttons{
+            a{
+                margin-top: 1rem;
+                width: unset;
+                @include button(false, #242323);
+            }
+        }
+    }
+}

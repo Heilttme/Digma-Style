@@ -1,0 +1,276 @@
+@import "./presets";
+
+
+header{
+    width: 100%;
+    position: sticky;
+    z-index: 100000;
+    top: 0;
+    display: flex;
+    justify-content: center;
+
+    li{
+        list-style: none;
+    }
+
+    nav{
+        width: 85%;
+        padding: 1.2rem;
+
+        .ul-header{
+            display: flex;
+            justify-content: space-between;
+
+            .search{
+
+                span{
+                    position: relative;
+                }
+
+                a{
+                    @include button($duration: .1s);
+                }
+
+                .categories{
+                    display: flex;
+                    justify-content: space-between;
+                    position: absolute;
+                    padding-top: 1.5rem;
+                    top: 1.5rem;
+                    background: transparent;
+                            
+                    .header-category{
+                        text-align: center;
+                        text-decoration: none;
+                        padding-left: 2.5rem;
+                        padding-right: 2.5rem;
+                        color: black;
+                        font-size: 1.3em;
+                    }
+
+                    .category-wrapper{
+                        display: flex;
+                        flex-direction: column;
+                        // justify-content: center;
+
+                        .category-items{
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+
+                            a{
+                                white-space: nowrap;
+                                padding-inline: 2rem;
+                                text-align: center;
+                                text-transform: capitalize;
+                            }
+
+                        }
+
+                    }
+
+                    // .category-items{
+                    //     fis
+                    // }
+
+                }
+
+                .ul-search{
+                    margin-left: 4rem;
+                    display: flex;
+                    align-items: center;
+
+                    .search-container{
+                        position: relative;
+                        justify-content: unset;
+                        width: 199px;
+                    
+                        .search-items{
+                            position: absolute;
+                            top: 2.4rem;
+                            left: 0;
+                            background: transparent;
+                    
+                            .search-card{
+                                display: flex;
+                                justify-content: start;
+                                align-items: center;
+                                padding: .6rem;
+                                margin-top: .1rem;
+                                width: 199px;
+                                text-align: left;
+                                text-overflow: ellipsis;
+                                background-color: #dfdfdf;
+
+                                &:hover{
+                                    background-color: #dfdbdb;
+                                }
+                                
+                                p{
+                                    background: transparent;
+                                }
+                            }
+                        }
+
+                        .li-magnifier{
+                            background: transparent;
+                            position: absolute;
+                            right: .4rem;
+                            bottom: .35rem;
+                            height: 24px;
+                            width: 24px;
+
+                            img{
+                                background: transparent;
+                                width: 22px;
+                                height: 22px;
+                            }
+                        }
+                    }
+
+                    li{
+
+                        img{
+                            cursor: pointer;
+                            user-select: none;
+                        }
+
+                        input{
+                            border: none;
+                            outline: none;
+                            border: 1px solid rgba(0, 0, 0, .15);
+                            padding: .6rem 1.5rem;
+
+                            &:focus{
+                                border: 1px solid rgba(0, 0, 0, .35);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .top-nav-content{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 33%;
+                
+                .logo{
+                    font-size: 2em;
+                    font-weight: 600;
+                    font-family: Montserrat;
+                    text-transform: uppercase;
+                }
+
+                a{
+                    text-decoration: none;
+                    color: black;
+
+                    
+                }
+            }
+
+            .login-language-card-liked{
+
+                ul{
+                    width: 80%;
+                    display: flex;
+                    justify-content: space-between;
+
+                    li{
+                        position: relative;
+
+                        ul{
+                            display: flex;
+                            justify-content: space-between;
+                            position: relative;
+                            z-index: 0;
+
+                            li{
+                                padding: 0;
+                                padding-top: 10px;
+                                max-height: 40px;
+                                background: black;
+                                display: flex;
+                                align-items: center;
+                                border: none;
+                                background: none;
+                                cursor: pointer;
+                                user-select: none;
+        
+                                img{
+                                    width: 24;
+                                    height: 24;
+                                }
+                            }
+
+                            .secondary-flag{
+                                position: absolute;
+                                z-index: -1;
+                            }
+                        }
+
+                        img{
+                            user-select: none;
+                        }
+
+                        .cta-like, .cta-cart{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: .6rem;
+                            transition: all .2s ease-in-out;
+
+                            &:hover{
+                                border-radius: 50%;
+                                background-color: #dfdbdb;
+                            }
+
+                            img{
+                                background: transparent
+                            }
+                        }
+
+                        .login-wrapper{
+                            background: transparent;
+                            margin-top: 2.5rem;
+                            padding-top: .5rem;
+                            top: 0;
+                            position: absolute;
+                        }
+
+                        .user-dropdown{
+                            padding-top: 1rem;
+                            display: flex;
+                            flex-direction: column;
+                            background: #e6e6e6;
+                            width: 100%;
+                            gap: .8rem;
+
+                            li{
+                                display: unset;
+                                min-width: 100%;
+                                @include button;
+
+                                a{
+                                    background: transparent
+                                }
+
+                                button{
+                                    border: none;
+                                    background: transparent;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                
+                .login{
+                    @include button;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+.loading-wrapper{
+    margin: 2rem auto;
+    margin-bottom: 40rem;
+    width: 56px;
+    height: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.circle{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #a6a6a6;
+    opacity: .67;
+}

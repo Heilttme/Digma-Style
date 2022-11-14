@@ -1,0 +1,83 @@
+import React, { useEffect, useState } from 'react'
+import {useSelector} from "react-redux"
+import FavCard from './FavCard'
+import { RemovedItemPopUp } from "../components"
+import { v4 as uuidv4 } from 'uuid'
+import { Navigate } from 'react-router'
+import brokenHeart from "../images/broken_heart.svg"
+import Loading from './Loading'
+
+const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
+  const itemsObj = useSelector(state => state.user.favorited)
+  const itemsList = Object.values(itemsObj)
+  const [removedItemsPopUps, setRemovedItemsPopUps] = useState([])
+  const [loadingDots, setLoadingDots] = useState(true)
+  const isLoggedin = useSelector(state => state.user.isLoggedin)
+
+  // setTimeout(() => {    
+  //   if (!isLoggedin){
+  //     console.log(email);
+  //     return <Navigate to="/login"/>
+  //   }
+  // }, 200)
+
+  const removedItemsToShow = removedItemsPopUps.map(item => <RemovedItemPopUp key={uuidv4()} item={item} removedItemsPopUps={removedItemsPopUps} setRemovedItemsPopUps={setRemovedItemsPopUps} addToFavorited={addToFavorited} />)
+  const items = favoriteItems.map(item => <FavCard key={item.id} item={item} itemsList={itemsList} setFavoriteItems={setFavoriteItems} setRemovedItemsPopUps={setRemovedItemsPopUps} />)
+
+  setTimeout(() => setLoadingDots(false), 500)
+
+  if (!itemsList.length) {
+    return loadingDots ? <Loading/> :
+      <>
+        <h1 className='head'>Your favorites</h1>
+        <div>
+          <EmptyFavorited/>
+        </div>
+        { removedItemsPopUps.length ?
+        <div className='removed-items'>
+          {removedItemsToShow}
+        </div> : <></> }
+      </>
+  }
+
+  return (
+    <>
+      <div className='favorited'>
+          <h1 className='head'>Your favorites</h1>
+          {
+            itemsList.length
+              ?
+            <div className='grid-list-items'>
+              {items}
+            </div>
+              :
+            <div>
+              <EmptyFavorited/>
+            </div>
+          }
+        { removedItemsPopUps.length ?
+        <div className='removed-items'>
+          {removedItemsToShow}
+        </div> : <></> }
+      </div>
+    </>
+  )
+}
+
+const EmptyFavorited = () => {
+  return (
+    <div className='empty-favorites'>
+        <div className='image'>
+            <img width={96} src={brokenHeart}/>
+        </div>
+        <div className='right-col'>
+            <p>Whoops... it looks like your favorites are empty</p>
+            <div className='cta-buttons'>
+                <a href='#'>Browse items</a>
+            </div>
+        </div>
+    </div>
+  )
+}
+
+export default Favorites

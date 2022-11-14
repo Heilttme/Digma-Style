@@ -1,0 +1,25 @@
+@import "./header";
+@import "./home";
+@import "./item";
+@import "./footer";
+@import "./log_in";
+@import "./sign_up";
+@import "./cart";
+@import "./favorited";
+@import "./search";
+@import "./loading";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto;
+    background-color: #e6e6e6;
+}
+
+.wrapper{
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2rem;
+    height: 100%;
+}
