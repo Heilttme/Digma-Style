@@ -152,9 +152,9 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
             </li>
             <li className='top-nav-content'><Link to='/' className='logo'>Digma Style</Link></li>
             <li className='login-language-card-liked top-nav-content'>
-              <ul>
+              <ul className='content'>
                 <li>
-                  <ul>
+                  <ul className='flags'>
                     <li onMouseEnter={() => setFlagHovered(true)} onMouseLeave={() => setFlagHovered(false)}><img onClick={() => i18n.language === "ru" ? changeLanguage("en") : changeLanguage("ru")} src={i18n.language === "en" ? ukFlag : russianFlag}/></li>
                     <motion.li onMouseEnter={() => setFlagHovered(true)} onMouseLeave={() => setFlagHovered(false)} animate={{y: flagHovered ? 30 : 0}} className='secondary-flag'><img onClick={() => i18n.language === "ru" ? changeLanguage("en") : changeLanguage("ru")} src={i18n.language === "ru" ? ukFlag : russianFlag}/></motion.li>
                   </ul>
@@ -175,20 +175,20 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
                     <Link to='/login' className={`login ${theme}-hover`} >{isLoggedin ? username : t("LogIn")}</Link>
                     <AnimatePresence>
                       {(userHovered && isLoggedin) &&
-                        <div className='login-wrapper'>
-                          <motion.ul 
-                            key="login"
-                            initial={{opacity: 0, y: "-50%"}}
-                            animate={{opacity: 1, y: "0%"}}
-                            exit={{opacity: 0, y: "-50%", transition: {duration: "0.15"}}}
-                            transition={{type: "spring", stiffness: "100", duration: "0.8"}}
-                            className='user-dropdown' 
-                          >
-                            <li><Link to="">{t("Account")}</Link></li>
-                            <li><Link to="">{t("Orders")}</Link></li>
-                            <li><button onClick={logout}>{t("Logout")}</button></li>
-                          </motion.ul>
-                        </div>
+                        <motion.div 
+                          key="login"
+                          initial={{opacity: 0, y: "-50%"}}
+                          animate={{opacity: 1, y: "0%"}}
+                          exit={{opacity: 0, y: "-50%", transition: {duration: "0.15"}}}
+                          transition={{type: "keyframes", duration: "0.2"}}
+                          className={`login-wrapper ${theme}-bg`}
+                        >
+                          <ul className='user-dropdown'>
+                            <li><Link to="" className={`${theme}-hover`}>{t("Account")}</Link></li>
+                            <li><Link to="" className={`${theme}-hover`}>{t("Orders")}</Link></li>
+                            <li><Link to="" className={`${theme}-hover`} onClick={logout}>{t("Logout")}</Link></li>
+                          </ul>
+                        </motion.div>
                       }
                     </AnimatePresence>
                   </div>

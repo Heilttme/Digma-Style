@@ -106,6 +106,7 @@ function Item({addToCart, addToFavorited, cartAnimated, cartCancelAnimated, favo
                 initial={{opacity: 0, y: "-50%"}}
                 animate={{opacity: 1, y: "0%"}}
                 exit={{opacity: 0, y: "-50%", transition: {duration: "0.15"}}}
+                transition={{type: "keyframes"}}
                 className="options"
               >
                 {itemData.sizes.split(";").map(el => (itemData.curSize !== el && <option key={uuidv4()} onClick={() => {

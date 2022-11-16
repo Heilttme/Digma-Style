@@ -152,21 +152,21 @@ header nav .ul-header .top-nav-content .logo {
 header nav .ul-header .top-nav-content a {
   text-decoration: none;
 }
-header nav .ul-header .login-language-card-liked ul {
+header nav .ul-header .login-language-card-liked .content {
   width: 80%;
   display: flex;
   justify-content: space-between;
 }
-header nav .ul-header .login-language-card-liked ul li {
+header nav .ul-header .login-language-card-liked .content li {
   position: relative;
 }
-header nav .ul-header .login-language-card-liked ul li ul {
+header nav .ul-header .login-language-card-liked .content li .flags {
   display: flex;
   justify-content: space-between;
   position: relative;
   z-index: 0;
 }
-header nav .ul-header .login-language-card-liked ul li ul li {
+header nav .ul-header .login-language-card-liked .content li .flags li {
   padding: 0;
   padding-top: 10px;
   max-height: 40px;
@@ -181,65 +181,58 @@ header nav .ul-header .login-language-card-liked ul li ul li {
       -ms-user-select: none;
           user-select: none;
 }
-header nav .ul-header .login-language-card-liked ul li ul li img {
+header nav .ul-header .login-language-card-liked .content li .flags li img {
   width: 24;
   height: 24;
 }
-header nav .ul-header .login-language-card-liked ul li ul .secondary-flag {
+header nav .ul-header .login-language-card-liked .content li .flags .secondary-flag {
   position: absolute;
   z-index: -1;
 }
-header nav .ul-header .login-language-card-liked ul li img {
+header nav .ul-header .login-language-card-liked .content li img {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
 }
-header nav .ul-header .login-language-card-liked ul li .cta-like, header nav .ul-header .login-language-card-liked ul li .cta-cart {
+header nav .ul-header .login-language-card-liked .content li .cta-like, header nav .ul-header .login-language-card-liked .content li .cta-cart {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0.6rem;
   transition: all 0.2s ease-in-out;
 }
-header nav .ul-header .login-language-card-liked ul li .cta-like:hover, header nav .ul-header .login-language-card-liked ul li .cta-cart:hover {
+header nav .ul-header .login-language-card-liked .content li .cta-like:hover, header nav .ul-header .login-language-card-liked .content li .cta-cart:hover {
   border-radius: 50%;
 }
-header nav .ul-header .login-language-card-liked ul li .cta-like img, header nav .ul-header .login-language-card-liked ul li .cta-cart img {
+header nav .ul-header .login-language-card-liked .content li .cta-like img, header nav .ul-header .login-language-card-liked .content li .cta-cart img {
   background: transparent;
 }
-header nav .ul-header .login-language-card-liked ul li .login-wrapper {
-  background: transparent;
-  margin-top: 2.5rem;
+header nav .ul-header .login-language-card-liked .content li .login-wrapper {
+  margin-top: 3.4rem;
   padding-top: 0.5rem;
   top: 0;
   position: absolute;
 }
-header nav .ul-header .login-language-card-liked ul li .user-dropdown {
-  padding-top: 1rem;
+header nav .ul-header .login-language-card-liked .content li .user-dropdown {
   display: flex;
   flex-direction: column;
-  background: #e6e6e6;
-  width: 100%;
+  justify-content: center;
   gap: 0.8rem;
 }
-header nav .ul-header .login-language-card-liked ul li .user-dropdown li {
-  display: unset;
-  min-width: 100%;
+header nav .ul-header .login-language-card-liked .content li .user-dropdown li a {
   transition: all 0.2s ease-in-out;
   padding: 0.6rem 1.5rem;
   text-decoration: none;
   display: inline-block;
   outline: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
-header nav .ul-header .login-language-card-liked ul li .user-dropdown li a {
-  background: transparent;
-}
-header nav .ul-header .login-language-card-liked ul li .user-dropdown li button {
-  border: none;
-  background: transparent;
-  cursor: pointer;
+header nav .ul-header .login-language-card-liked .content li .user-dropdown li:last-child {
+  margin-bottom: 0.5rem;
 }
 header nav .ul-header .login-language-card-liked .login {
   transition: all 0.2s ease-in-out;
@@ -491,7 +484,7 @@ header nav .ul-header .login-language-card-liked .login {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  z-index: 1;
+  z-index: 2;
   grid-area: S;
   position: relative;
   font-size: 1.6em;
@@ -544,6 +537,7 @@ header nav .ul-header .login-language-card-liked .login {
   margin-top: 0.4rem;
   background-color: #242323;
   border: #404040 1px solid;
+  z-index: 1;
 }
 .item .info .select-item .options option {
   transition: all 0.2s ease-in-out;
@@ -772,7 +766,8 @@ header nav .ul-header .login-language-card-liked .login {
 .login .form .password-remember div input[type=checkbox]:checked + label::before {
   border-color: #0b76ef;
   background-color: #0b76ef;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
+  background-size: 12px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
 .login .form .password-remember a {
   text-decoration: none;
@@ -1467,8 +1462,9 @@ header nav .ul-header .login-language-card-liked .login {
   background-size: 50% 50%;
 }
 .search-menu .filters-wrapper .filters .filter-container .filter-options input[type=checkbox]:checked + label::after {
-  border-color: #242323;
+  border: 0.1px solid rgba(223, 219, 219, 0.1725490196);
   background-color: #242323;
+  background-size: 12px;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
 .search-menu .filters-wrapper .filters .filter-container .price {

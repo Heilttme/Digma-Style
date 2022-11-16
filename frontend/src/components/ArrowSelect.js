@@ -12,7 +12,6 @@ const ArrowSelect = ({shownValue, setShownValue, insetInlineEnd, insetBlockStart
         animate={shownValue ? {rotate: "-90deg", insetInlineEnd, insetBlockStart} : {}}
         transition={{type: "keyframes", duration: .2}}
         className='arrow-wrapper'
-        onClick={() => setShownValue(prev => !prev)}
     >
         <div className='select-arrow'>
             <div className={`top ${theme === "dark" ? "light" : "dark"}-bg`}></div>

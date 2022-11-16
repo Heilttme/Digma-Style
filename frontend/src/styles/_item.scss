@@ -102,7 +102,7 @@
 
         .select-item{
             @include custom-select(100%, 50px);
-            z-index: 1;
+            z-index: 2;
             grid-area: S;
             position: relative;
             font-size: 1.6em;
@@ -154,6 +154,7 @@
                 margin-top: .4rem;
                 background-color: #242323;
                 border: #404040 1px solid;
+                z-index: 1;
                 
                 option{
                     transition: all .2s ease-in-out;

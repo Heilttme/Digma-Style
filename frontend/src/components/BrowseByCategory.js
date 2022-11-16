@@ -5,18 +5,24 @@ import ArrowSelect from './ArrowSelect'
 import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
 import { t } from "i18next"
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
   const [queryItems, setQueryItems] = useState([])
-  const [filteredItems, setFilteredItems] = useState(itemsState)
+  const [filteredItems, setFilteredItems] = useState([])
   const [filterOptions, setFilterOptions] = useState({
     categories: [],
     brands: [],
     colours: [],
     prices: {start: null, end: null},
   })
-  const params = useParams()
+
+  const [params, setParams] = useState({})
+  const newParams = useParams()
+
+  useEffect(() => {
+    setParams(prev => shallowEqual(prev, newParams) ? prev : newParams)
+  }, [newParams])
 
   const theme = useSelector(state => state.ui.theme)
 
@@ -26,6 +32,13 @@ const BrowseByCategory = ({itemsState, addToFavorited, addToCart}) => {
   const [priceShown, setPriceShown] = useState(false)
   const [toggledFilters, setToggledFilters] = useState([])
 
+  useEffect(() => {
+    setToggledFilters([])
+    setCategoryShown(false)
+    setBrandShown(false)
+    setColourShown(false)
+    setPriceShown(false)
+  }, [params])
 
   useEffect(() => {
       if (Object.values(params).length) {
