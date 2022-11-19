@@ -45,6 +45,7 @@
     "PleaseEnterYourPassword": "please enter your password",
     "NewToDigmaStyle": "New to Digma Style?",
     "Email": "Email",
+    "Username": "Username",
     "Password": "Password",
     "RememberMe": "Remember me",
     "ForgotYourPassword": "Forgot your password?",
@@ -52,5 +53,6 @@
     "WhoopsEmptyFavorites": "Whoops... it looks like your favorites are empty",
     "BrowseItems": "Browse items",
     "Results": "Results",
-    "Result": "Result"
+    "Result": "Result",
+    "UserAlreadyExists": "User already exists"
 }

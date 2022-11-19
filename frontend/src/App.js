@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom"
-import { Header, Footer, Home, Item, Login, SignUp, Cart, Favorites, Search } from "./components"
+import { Header, Footer, Home, Item, Login, SignUp, Cart, Favorites, Search, Account } from "./components"
 import { motion } from "framer-motion"
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./store/userSlice";
@@ -19,15 +19,21 @@ function App() {
   const [favoriteAnimated, setFavoriteAnimated] = useState(false)
   const [favoriteCancelAnimated, setFavoriteCancelAnimated] = useState(false)
   const [timeouts, setTimeouts] = useState([])
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    phoneNumber: "",
+  })
 
   const isLoggedin = useSelector(state => state.user.isLoggedin)
   const email = useSelector(state => state.user.email)
   const cart = useSelector(state => state.user.cart)
   const favItemsObj = useSelector(state => state.user.favorited)
   const favItemsList = Object.values(favItemsObj)
-
   const theme = useSelector(state => state.ui.theme)
-  
   const dispatch = useDispatch()
 
   const {t, i18n} = useTranslation()
@@ -36,16 +42,29 @@ function App() {
     i18n.changeLanguage(lang)
   }
 
-  useEffect(() => dispatch(uiActions.changeTheme(localStorage.getItem("theme"))), [])
+  console.log(user);
+
+  useEffect(() => {dispatch(uiActions.changeTheme(localStorage.getItem("theme")))}, []) // wrapped by {} because if they aren't there app throws destroy is not a function error
 
   useEffect(() => {
     const resAuth = axios.post("/authentication/login/", {login: "login"}, {withCredentials: true})
     .then(data => {
-      if (data.data.message === "success") {
+      if (data.status === 200) {
         dispatch(userActions.setLoggedIn(true))
         dispatch(userActions.setUsername(data.data.post.username))
         dispatch(userActions.setEmail(data.data.post.email))
+        setUser({
+          username: data.data.post.username, 
+          email: data.data.post.email, 
+          firstName: data.data.post.first_name, 
+          lastName: data.data.post.last_name, 
+          gender: data.data.post.gender, 
+          phoneNumber: data.data.post.phone_number, 
+        })
       }
+    })
+    .catch(data => {
+
     })
   }, [])
 
@@ -207,8 +226,8 @@ function App() {
                                                     favoriteCancelAnimated={favoriteCancelAnimated}
                                                     favItemsList={favItemsList}
                                               />} />
-            <Route path="/login" element={<Login />}/>
-            <Route path="/sign_up" element={<SignUp />}/>
+            <Route path="/login" element={<Login setUser={setUser} />}/>
+            <Route path="/sign_up" element={<SignUp setUser={setUser} />}/>
             <Route path="/cart" element={<Cart cart={cart}
                                                cartItems={cartItems} 
                                                setCartItems={setCartItems}/>}
@@ -230,7 +249,7 @@ function App() {
             <Route path="/browse/:type/:category/:categoryBrand" element={<BrowseByCategory itemsState={itemsState}
                                                                                     addToFavorited={addToFavorited} 
                                                                                     addToCart={addToCart} />}/>
-
+            <Route path="/account" element={<Account user={user} />}/>
 
           </Routes>
         </div>

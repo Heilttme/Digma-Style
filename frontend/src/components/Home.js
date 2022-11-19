@@ -12,6 +12,7 @@ import axios from 'axios'
 import {motion} from "framer-motion"
 import { t } from 'i18next'
 import { useSelector } from 'react-redux'
+import { v4 as uuidv4 } from "uuid"
 
 
 function Home({addToFavorited, addToCart}) {
@@ -51,11 +52,10 @@ function Home({addToFavorited, addToCart}) {
       const newAr = []
   
       for (let i = 0; i < indexes.length; i++) {
-        newAr.push(<HomeCard addToFavorited={addToFavorited} addToCart={addToCart} item={popularItemsToDisplay[indexes[i]]}/>)
+        newAr.push(<HomeCard key={uuidv4()} addToFavorited={addToFavorited} addToCart={addToCart} item={popularItemsToDisplay[indexes[i]]}/>)
       }
   
       setSliderDisplayArray(newAr)
-      // setSliderDisplayArray(popularItemsToDisplay.map((item, index) => <div><HomeCard addToFavorited={addToFavorited} addToCart={addToCart} key={index} item={item}/></div>))
     }
   }, [popularItemsToDisplay])
 

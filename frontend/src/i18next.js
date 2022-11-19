@@ -28,7 +28,7 @@ i18n
       // checkWhitelist: true, // options for language detection
     },
 
-    debug: true,
+    debug: false,
 
     whitelist: availableLanguages,
 

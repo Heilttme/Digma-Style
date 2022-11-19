@@ -45,6 +45,7 @@
     "PleaseEnterYourPassword": "Пожалуйста, введите свой пароль",
     "NewToDigmaStyle": "Впервые на Digma Style?",
     "Email": "Электронная почта",
+    "Username": "Имя пользователя",
     "Password": "Пароль",
     "RememberMe": "Запомнить меня",
     "ForgotYourPassword": "Забыли пароль?",
@@ -52,5 +53,6 @@
     "WhoopsEmptyFavorites": "Упсс... Похоже, вы еще не добавили никаких вещей",
     "BrowseItems": "В каталог",
     "Results": "Результата",
-    "Result": "Результат"
+    "Result": "Результат",
+    "UserAlreadyExists": "Пользователь уже существует"
 }

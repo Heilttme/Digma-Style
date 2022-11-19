@@ -6,7 +6,7 @@ import { userActions } from '../store/userSlice'
 import axios from 'axios'
 import { t } from 'i18next'
 
-export const Login = () => {
+export const Login = ({setUser}) => {
   const isLoggedin = useSelector(state => state.user.isLoggedin)
   const [formData, setFormData] = useState({
     email: "",
@@ -50,10 +50,18 @@ export const Login = () => {
 
     const res = axios.post("/authentication/login/", formData)
     .then(data => {
-      if (data.data.message === "success"){
+      if (data.status === 200){
         dispatch(userActions.setLoggedIn(true))
         dispatch(userActions.setUsername(data.data.post.username))
         dispatch(userActions.setEmail(data.data.post.email))
+        setUser({
+          username: data.data.post.username, 
+          email: data.data.post.email, 
+          firstName: data.data.post.first_name, 
+          lastName: data.data.post.last_name, 
+          gender: data.data.post.gender, 
+          phoneNumber: data.data.post.phone_number, 
+        })
         const resToken = axios.post("authentication/token/", {email: formData.email}, {withCredentials: true})
         return <Navigate to=""/>
       }

@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password, check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
+from rest_framework import status
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -20,7 +21,7 @@ def token_response(request):
     user = ShopUser.objects.filter(email=request.data.get("email"))
     
     if not user:
-        return Response({"error": "User does not exists", "message": "error"})
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     user = list(user)[0]
 
@@ -41,7 +42,7 @@ def add_to_cart(request):
 
     user.cart = cart
     user.save()
-    return Response({"post": "cart updated successfully"})
+    return Response(status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -63,7 +64,7 @@ def set_cart_quantity_item(request):
     user.cart = cart
 
     user.save()
-    return Response({"cart": "changed successfully"})
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(["POST"])
 def set_cart_size(request):
@@ -78,7 +79,7 @@ def set_cart_size(request):
     user.cart = cart
 
     user.save()
-    return Response({"cart": "changed successfully"})
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(["POST"])
 def delete_cart_item(request):
@@ -92,7 +93,7 @@ def delete_cart_item(request):
     user.cart = cart
     user.save()
 
-    return Response({"cart": "deleted successfully"})    
+    return Response(status=status.HTTP_200_OK)    
 
 
 @api_view(["POST"])
@@ -106,7 +107,7 @@ def add_to_favorited(request):
 
     user.save()
 
-    return Response({"favorited": "added successfully"})
+    return Response(status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -126,13 +127,13 @@ def set_favorited(request):
     user.favorited = request.data.get("favorited")
     user.save()
 
-    return Response({"favorited": "set successfully"})
+    return Response(status=status.HTTP_200_OK)
 
 class SignUpView(APIView):
     def post(self, request, *args, **kwargs):
         if request.COOKIES.get("TOKEN"):
             if request.data.get("login") == "logout":
-                response = Response({"success": "cookie deleted", "message": "success"})
+                response = Response(status=status.HTTP_200_OK)
                 response.delete_cookie("TOKEN")
                 return response
 
@@ -142,12 +143,11 @@ class SignUpView(APIView):
 
                 user = list(user)[0]
 
-                return Response({"post": {"username": user.username, "email": user.email}, "message": "success"})
+                return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number}}, status=status.HTTP_200_OK)
         
         user = ShopUser.objects.filter(email=request.data.get("email"))
         if user:
-            return Response({"error": "User already exists", "message": "error"})
-            print({"error": "User already exists", "message": "error"})
+            return Response(status=status.HTTP_403_FORBIDDEN)
         
         password = make_password(request.data.get("password"))
         email = request.data.get("email")
@@ -169,33 +169,33 @@ class SignUpView(APIView):
             
         user.save()
 
-        return Response({"post": {"username": user.username, "email": user.email, "refresh": user.refresh_token, "access": user.access_token}, "message": "success"})
+        return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number, "refresh": user.refresh_token, "access": user.access_token}}, status=status.HTTP_200_OK)
 
 
 class LogInView(APIView):
     def post(self, request, *args, **kwargs):
         if request.COOKIES.get("TOKEN"):
             if request.data.get("login") == "logout":
-                response = Response({"success": "cookie deleted", "message": "success"})
+                response = Response(status=status.HTTP_200_OK)
                 response.delete_cookie("TOKEN")
                 return response
 
             user = ShopUser.objects.filter(access_token=request.COOKIES.get("TOKEN"))
             if not user:
-                return Response({"error": "User does not exists", "message": "error"})
+                return Response(status=status.HTTP_404_NOT_FOUND)
 
             user = list(user)[0]
 
-            return Response({"post": {"username": user.username, "email": user.email}, "message": "success"})
+            return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number}}, status=status.HTTP_200_OK)
 
         user = ShopUser.objects.filter(email=request.data.get("email"))
         if not user:
-            return Response({"error": "User does not exists", "message": "error"})
+            return Response(status=status.HTTP_404_NOT_FOUND)
         
         user = list(user)[0]
 
         if check_password(request.data.get("password"), user.password):
-            return Response({"post": {"username": user.username, "email": user.email}, "message": "success"})
+            return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number}}, status=status.HTTP_200_OK)
 
 
-        return Response({"error": "Unknown error occured", "message": "error"})
+        return Response(status=status.HTTP_417_EXPECTATION_FAILED)

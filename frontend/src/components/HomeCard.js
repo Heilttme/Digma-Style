@@ -4,7 +4,7 @@ import heart from "../images/heart.svg"
 import filledHeart from "../images/filled_heart.svg"
 import { motion } from "framer-motion"
 import { useSelector } from "react-redux"
-
+ 
 function HomeCard({item, addToFavorited}) {
   const imgUrl = item.pictures[0]
   const brand = item.brand

@@ -13,6 +13,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { t } from 'i18next'
 import { uiActions } from '../store/uiSlice'
+import { v4 as uuidv4 } from 'uuid'
 
 function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
   const [flagHovered, setFlagHovered] = useState(false)
@@ -36,7 +37,7 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
   const logout = () => {
     const res = axios.post("/authentication/login/", {login: "logout"}, {withCredentials: true})
     .then(data => {
-      if (data.data.message === "success") {
+      if (data.status === 200) {
         dispatch(userActions.logout(false))
         setUserHovered(false)
         setFadeScreen(false)
@@ -109,13 +110,13 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
                           <li className='category-wrapper'>
                             <Link className={`header-category ${theme}-hover`} to="browse/clothing">{t("Clothing")}</Link>
                             <ul className='category-items'>
-                              {browseParams.clothing.map(item => item !== false &&  <li><Link to={`browse/clothing/${item}`} className={`${theme}-hover`}>{item}</Link></li>)}
+                              {browseParams.clothing.map(item => item !== false && <li key={uuidv4()}><Link to={`browse/clothing/${item}`} className={`${theme}-hover`}>{item}</Link></li>)}
                             </ul>
                           </li>
                           <li className='category-wrapper'>
                             <Link className={`header-category ${theme}-hover`} to="browse/shoes">{t("Shoes")}</Link>
                             <ul className='category-items'>
-                              {browseParams.shoes.map(item => item !== false && <li><Link to={`browse/shoes/${item}`} className={`${theme}-hover`}>{item}</Link></li>)}
+                              {browseParams.shoes.map(item => item !== false && <li key={uuidv4()}><Link to={`browse/shoes/${item}`} className={`${theme}-hover`}>{item}</Link></li>)}
                             </ul>
                           </li>
                         </motion.ul>
@@ -181,10 +182,10 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
                           animate={{opacity: 1, y: "0%"}}
                           exit={{opacity: 0, y: "-50%", transition: {duration: "0.15"}}}
                           transition={{type: "keyframes", duration: "0.2"}}
-                          className={`login-wrapper ${theme}-bg`}
+                          className="login-wrapper"
                         >
-                          <ul className='user-dropdown'>
-                            <li><Link to="" className={`${theme}-hover`}>{t("Account")}</Link></li>
+                          <ul className={`user-dropdown ${theme}-bg`}>
+                            <li><Link to="/account" className={`${theme}-hover`}>{t("Account")}</Link></li>
                             <li><Link to="" className={`${theme}-hover`}>{t("Orders")}</Link></li>
                             <li><Link to="" className={`${theme}-hover`} onClick={logout}>{t("Logout")}</Link></li>
                           </ul>
