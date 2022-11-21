@@ -11,13 +11,22 @@
             min-height: 400px;
 
             .slick-arrow{
+                color: #242323;
                 transition: all .3s ease-in-out;
                 height: 15rem;
                 width: 2rem;
-                padding: 7rem .5rem;
+                padding: 6.5rem .4rem;
 
                 &:hover{
                     background-color: #c3bbbb;
+                }
+            }
+
+            .dark-bg{
+                color: white;
+
+                &:hover{
+                    background-color: #424242;
                 }
             }
 

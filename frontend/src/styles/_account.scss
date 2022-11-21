@@ -25,6 +25,7 @@
 }
 
 .account-section{
+    width: 30%;
     .user-params{
         margin-top: 2rem;
         display: flex;
@@ -37,6 +38,19 @@
 
             svg{
                 cursor: pointer;
+            }
+
+            .field-wrapper{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+
+                input{
+                    user-select: none;
+                    font-size: 1em;
+                    width: 100px;
+                }
             }
         }
     }

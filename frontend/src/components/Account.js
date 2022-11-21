@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSelector } from "react-redux"
 import { motion } from "framer-motion"
 
-const Account = ({user}) => {
+const Account = ({user, setUser}) => {
   const [curSection, setCurSection] = useState(null)
   const [expanded, setExpanded] = useState(true)
 
@@ -55,7 +55,7 @@ const Account = ({user}) => {
         </a>
       </motion.div>
       {
-        curSection === "account" ? <AccountSection user={user} theme={theme} /> : <></>
+        curSection === "account" ? <AccountSection user={user} theme={theme} setUser={setUser} /> : <></>
       }
       {
         curSection === "orders" ? <OrdersSection/> : <></>
@@ -70,7 +70,7 @@ const Account = ({user}) => {
   )
 }
 
-const AccountSection = ({user, theme}) => {
+const AccountSection = ({user, theme, setUser}) => {
 
   const [usernameEdit, setUsernameEdit] = useState(false)
   const [emailEdit, setEmailEdit] = useState(false)
@@ -78,16 +78,34 @@ const AccountSection = ({user, theme}) => {
   const [firstNameEdit, setFirstNameEdit] = useState(false)
   const [lastNameEdit, setLastNameEdit] = useState(false)
   const [genderEdit, setGenderEdit] = useState(false)
-  const [phoneNumberEdit, setPhoneNumberEdit] = useState(false)
   
+  const usernameRef = useRef(null)
+  const firstNameRef = useRef(null)
+  const lastNameRef = useRef(null)
+  const genderRef = useRef(null)
+  
+  const [newUsername, setNewUsername] = useState(user.username)
+  const [newFirstName, setNewFirstName] = useState(user.firstName)
+  const [newLastName, setNewLastName] = useState(user.lastName)
+  const [newGender, setNewGender] = useState(user.gender)
 
   return (
     <div className='account-section'>
       <h1>Account settings</h1>
       <ul className='user-params'>
         <li className='user-param'>
-          <svg onClick={() => setUsernameEdit(true)} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
-          {usernameEdit ? <><h3>Username:</h3><input className={`${theme}-bg`}/></> : <h3>Username: {user.username}</h3>}
+          <svg onClick={() => {setUsernameEdit(true); setTimeout(() => usernameRef.current.focus(), 100)}} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
+          <span className='field-wrapper'>
+            <h3>Username:</h3>
+            <input
+              disabled={usernameEdit ? false : true}
+              ref={usernameRef}
+              className={`${theme}-bg`} 
+              value={newUsername} 
+              onChange={(e) => setNewUsername(e.target.value)}
+              onBlur={() => {setUser(prev => ({...prev, username: newUsername})); setUsernameEdit(false)}}
+            />
+          </span>
         </li>
         <li className='user-param'>
           <svg onClick={() => setEmailEdit(true)} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
@@ -98,20 +116,46 @@ const AccountSection = ({user, theme}) => {
           <h3>Password: *******</h3>
         </li>
         <li className='user-param'>
-          <svg onClick={() => setFirstNameEdit(true)} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
-          <h3>First name: {user.firstName}</h3>
+          <svg onClick={() => {setFirstNameEdit(true); setTimeout(() => firstNameRef.current.focus(), 100)}} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
+          <span className='field-wrapper'>
+            <h3>First name:</h3>
+            <input
+              disabled={firstNameEdit ? false : true}
+              ref={firstNameRef}
+              className={`${theme}-bg`} 
+              value={newFirstName} 
+              onChange={(e) => setNewFirstName(e.target.value)}
+              onBlur={() => {setUser(prev => ({...prev, firstName: newFirstName})); setFirstNameEdit(false)}}
+            />
+          </span>
         </li>
         <li className='user-param'>
-          <svg onClick={() => setLastNameEdit(true)} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
-          <h3>Last name: {user.lastName}</h3>
+          <svg onClick={() => {setLastNameEdit(true); setTimeout(() => lastNameRef.current.focus(), 100)}} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
+          <span className='field-wrapper'>
+            <h3>Last name:</h3>
+            <input
+              disabled={lastNameEdit ? false : true}
+              ref={lastNameRef}
+              className={`${theme}-bg`} 
+              value={newLastName} 
+              onChange={(e) => setNewLastName(e.target.value)}
+              onBlur={() => {setUser(prev => ({...prev, lastName: newLastName})); setLastNameEdit(false)}}
+            />
+          </span>
         </li>
         <li className='user-param'>
-          <svg onClick={() => setGenderEdit(true)} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
-          <h3>Gender: {user.gender}</h3>
-        </li>
-        <li className='user-param'>
-          <svg onClick={() => setPhoneNumberEdit(true)} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
-          <h3>Phone number: {user.phoneNumber}</h3>
+          <svg onClick={() => {setGenderEdit(true); setTimeout(() => genderRef.current.focus(), 100)}} fill='currentColor' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path d="M16.598 13.091l-5.69-5.688 7.402-7.403 5.69 5.689-7.402 7.402zm-16.598 10.909l7.126-1.436-5.688-5.689-1.438 7.125zm1.984-20.568l6.449 6.446-5.582 5.582 5.689 5.69 5.583-5.583 6.492 6.49 1.4-1.428-18.631-18.625-1.4 1.428z"/></svg>
+          <span className='field-wrapper'>
+            <h3>Gender:</h3>
+            <input
+              disabled={genderEdit ? false : true}
+              ref={genderRef}
+              className={`${theme}-bg`} 
+              value={newGender} 
+              onChange={(e) => setNewGender(e.target.value)}
+              onBlur={() => {setUser(prev => ({...prev, gender: newGender})); setGenderEdit(false)}}
+            />
+          </span>
         </li>
       </ul>
     </div>

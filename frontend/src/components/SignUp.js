@@ -74,7 +74,6 @@ export const SignUp = ({setUser}) => {
                         firstName: data.data.post.first_name, 
                         lastName: data.data.post.last_name, 
                         gender: data.data.post.gender, 
-                        phoneNumber: data.data.post.phone_number, 
                       })
                     const res_token = axios.post("authentication/token/", {email: formData.email}, {withCredentials: true})
                     sessionStorage.clear()

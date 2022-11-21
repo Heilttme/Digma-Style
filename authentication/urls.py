@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignUpView, LogInView, token_response, add_to_cart, get_cart_items, set_cart_quantity_item, delete_cart_item, add_to_favorited, get_favorited, set_favorited, set_cart_size
+from .views import SignUpView, LogInView, token_response, add_to_cart, get_cart_items, set_cart_quantity_item, delete_cart_item, add_to_favorited, get_favorited, set_favorited, set_cart_size, set_user_info
 
 urlpatterns = [
     path("signup/", SignUpView.as_view()),
@@ -13,4 +13,5 @@ urlpatterns = [
     path("get_favorited/", get_favorited),
     path("set_favorited/", set_favorited),
     path("set_cart_size/", set_cart_size),
+    path("set_user_info/", set_user_info),
 ]

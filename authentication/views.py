@@ -143,7 +143,7 @@ class SignUpView(APIView):
 
                 user = list(user)[0]
 
-                return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number}}, status=status.HTTP_200_OK)
+                return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender}}, status=status.HTTP_200_OK)
         
         user = ShopUser.objects.filter(email=request.data.get("email"))
         if user:
@@ -169,7 +169,7 @@ class SignUpView(APIView):
             
         user.save()
 
-        return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number, "refresh": user.refresh_token, "access": user.access_token}}, status=status.HTTP_200_OK)
+        return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "refresh": user.refresh_token, "access": user.access_token}}, status=status.HTTP_200_OK)
 
 
 class LogInView(APIView):
@@ -185,8 +185,9 @@ class LogInView(APIView):
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
             user = list(user)[0]
+            print(user.get_password_reset_url())
 
-            return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number}}, status=status.HTTP_200_OK)
+            return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender}}, status=status.HTTP_200_OK)
 
         user = ShopUser.objects.filter(email=request.data.get("email"))
         if not user:
@@ -195,7 +196,25 @@ class LogInView(APIView):
         user = list(user)[0]
 
         if check_password(request.data.get("password"), user.password):
-            return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender, "phone_number": user.phone_number}}, status=status.HTTP_200_OK)
+            return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender}}, status=status.HTTP_200_OK)
 
 
         return Response(status=status.HTTP_417_EXPECTATION_FAILED)
+
+@api_view(["POST"])
+def set_user_info(request):
+    user = ShopUser.objects.filter(email=request.data.get("email"))
+    user = list(user)[0]
+    if user:
+        if request.data.get("username") != None and request.data.get("username") != "":
+            user.username = request.data.get("username")
+        if request.data.get("firstName") != None and request.data.get("firstName") != "":
+            user.first_name = request.data.get("firstName")
+        if request.data.get("lastName") != None and request.data.get("lastName") != "":
+            user.last_name = request.data.get("lastName")
+        if request.data.get("gender") != None and request.data.get("gender") != "":
+            user.gender = request.data.get("gender")
+
+        user.save()
+
+    return Response(status=status.HTTP_200_OK)

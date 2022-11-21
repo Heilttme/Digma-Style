@@ -1,31 +1,32 @@
 import React from 'react'
 import rArrow from "../images/right_arrow.svg"
 import lArrow from "../images/left_arrow.svg"
+import {useSelector} from "react-redux"
 
 function SampleNextArrow(props) {
-const { className, style, onClick } = props;
-return (
-    <img
-    className={className}
-    style={{ ...style, display: "block" }}
-    onClick={onClick}
-    src={rArrow}
-    />
-);
+  const { className, style, onClick } = props;
+  const theme = useSelector(state => state.ui.theme)
+
+  return (
+    <div className='arrow-image'>
+      <svg fill='currentColor' width="24" height="24" className={`${className} ${theme}-bg`}
+        style={{ ...style, display: "block" }}
+        onClick={onClick} xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z"/></svg>
+    </div>
+  );
 }
 
 function SamplePrevArrow(props) {
-const { className, style, onClick } = props;
-return (
-  <div className='arrow-image'>
-    <img
-    className={className}
-    style={{ ...style, display: "block" }}
-    onClick={onClick}
-    src={lArrow}
-    />
-  </div>
-);
+  const { className, style, onClick } = props;
+  const theme = useSelector(state => state.ui.theme)
+  
+  return (
+    <div className='arrow-image'>
+      <svg fill='currentColor' width="24" height="24" className={`${className} ${theme}-bg`}
+        style={{ ...style, display: "block" }}
+        onClick={onClick} xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M20 .755l-14.374 11.245 14.374 11.219-.619.781-15.381-12 15.391-12 .609.755z"/></svg>
+    </div>
+  );
 }
 
 export const setSettings = (items) => {

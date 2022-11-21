@@ -60,7 +60,6 @@ export const Login = ({setUser}) => {
           firstName: data.data.post.first_name, 
           lastName: data.data.post.last_name, 
           gender: data.data.post.gender, 
-          phoneNumber: data.data.post.phone_number, 
         })
         const resToken = axios.post("authentication/token/", {email: formData.email}, {withCredentials: true})
         return <Navigate to=""/>

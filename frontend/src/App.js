@@ -25,8 +25,12 @@ function App() {
     firstName: "",
     lastName: "",
     gender: "",
-    phoneNumber: "",
   })
+
+  useEffect(() => {
+    user.email && axios.post("authentication/set_user_info/", user)
+    user.username !== "" && user.username !== null && dispatch(userActions.setUsername(user.username)) 
+  }, [user])
 
   const isLoggedin = useSelector(state => state.user.isLoggedin)
   const email = useSelector(state => state.user.email)
@@ -41,8 +45,6 @@ function App() {
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang)
   }
-
-  console.log(user);
 
   useEffect(() => {dispatch(uiActions.changeTheme(localStorage.getItem("theme")))}, []) // wrapped by {} because if they aren't there app throws destroy is not a function error
 
@@ -59,7 +61,6 @@ function App() {
           firstName: data.data.post.first_name, 
           lastName: data.data.post.last_name, 
           gender: data.data.post.gender, 
-          phoneNumber: data.data.post.phone_number, 
         })
       }
     })
@@ -249,7 +250,7 @@ function App() {
             <Route path="/browse/:type/:category/:categoryBrand" element={<BrowseByCategory itemsState={itemsState}
                                                                                     addToFavorited={addToFavorited} 
                                                                                     addToCart={addToCart} />}/>
-            <Route path="/account" element={<Account user={user} />}/>
+            <Route path="/account" element={<Account user={user} setUser={setUser} />}/>
 
           </Routes>
         </div>
