@@ -1,28 +1,19 @@
 .footer{
     background-color: #1a1a1a;
     width: 100%;
-    color: white;
-
-    a{
-        text-decoration: none;
-        color: white;
-    }
 
     li{
         list-style: none;
-    }
-
-    div, ul, li, a, img, h1, h2, p{
-        background-color: inherit;
     }
 
     h2{
         font-size: 1.3em;
     }
 
-    .wrapper{
+    .footer-wrapper{
         width: 80%;
         margin: 0 auto;
+        padding-top: 2rem;
         
         .columns{
             display: flex;
@@ -67,6 +58,38 @@
         .copyright{
             margin-top: 2rem;
             padding-bottom: 2rem;
+        }
+    }
+}
+
+@media (max-width: 950px) {
+    .footer{
+
+        .footer-wrapper{
+            width: 95%;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .footer{
+
+        .footer-wrapper{
+
+            .columns{
+                flex-direction: column;
+                align-items: center;
+                text-align: left;
+
+                .col{
+                    margin-top: 2rem;
+                    width: 45%;
+
+                    &:first-child{
+                        margin-top: 0;
+                    }
+                }
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import { t } from 'i18next'
 const Footer = () => {
   return (
     <div className='footer'>
-      <div className='wrapper'>
+      <div className='footer-wrapper'>
         <div className='columns'>
           <div className='first-col col'>
             <h2>{t("ShopFooter")}</h2>

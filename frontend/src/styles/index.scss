@@ -78,3 +78,17 @@ a:visited{
         background-color: #dfdbdb;
     }
 }
+
+@media (max-width: 500px) {
+    .wrapper{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .wrapper{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
