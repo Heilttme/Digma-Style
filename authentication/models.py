@@ -22,10 +22,10 @@ class ShopUser(AbstractUser):
     REQUIRED_FIELDS = ["username"]
 
 
-    def get_password_reset_url(self):
-        base64_encoded_id = utils.http.urlsafe_base64_encode(utils.encoding.force_bytes(self.id))
-        token = PasswordResetTokenGenerator().make_token(self)
-        reset_url_args = {'uidb64': base64_encoded_id, 'token': token}
-        reset_path = reverse('password_reset_confirm', kwargs=reset_url_args)
-        reset_url = f'{settings.BASE_URL}{reset_path}'
-        return reset_url
+    # def get_password_reset_url(self):
+    #     base64_encoded_id = utils.http.urlsafe_base64_encode(utils.encoding.force_bytes(self.id))
+    #     token = PasswordResetTokenGenerator().make_token(self)
+    #     reset_url_args = {'uidb64': base64_encoded_id, 'token': token}
+    #     reset_path = reverse('password_reset_confirm', kwargs=reset_url_args)
+    #     reset_url = f'{settings.BASE_URL}{reset_path}'
+    #     return reset_url

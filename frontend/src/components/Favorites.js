@@ -9,8 +9,8 @@ import Loading from './Loading'
 import { t } from 'i18next'
 
 const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
-  const itemsObj = useSelector(state => state.user.favorited)
-  const itemsList = Object.values(itemsObj)
+  // const itemsObj = useSelector(state => state.user.favorited)
+  // const itemsList = Object.values(itemsObj)
   const [removedItemsPopUps, setRemovedItemsPopUps] = useState([])
   const [loadingDots, setLoadingDots] = useState(true)
   const isLoggedin = useSelector(state => state.user.isLoggedin)
@@ -23,11 +23,13 @@ const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
   // }, 200)
 
   const removedItemsToShow = removedItemsPopUps.map(item => <RemovedItemPopUp key={uuidv4()} item={item} removedItemsPopUps={removedItemsPopUps} setRemovedItemsPopUps={setRemovedItemsPopUps} addToFavorited={addToFavorited} />)
-  const items = favoriteItems.map(item => <FavCard key={item.id} item={item} itemsList={itemsList} setFavoriteItems={setFavoriteItems} setRemovedItemsPopUps={setRemovedItemsPopUps} />)
+  const items = favoriteItems.map(item => <FavCard key={item.id} favoriteItems={favoriteItems} item={item} setFavoriteItems={setFavoriteItems} setRemovedItemsPopUps={setRemovedItemsPopUps} />)
+
+  console.log(removedItemsToShow);
 
   setTimeout(() => setLoadingDots(false), 500)
 
-  if (!itemsList.length) {
+  if (!favoriteItems.length) {
     return loadingDots ? <Loading/> :
       <>
         <h1 className='head'>{t("YourFavorites")}</h1>
@@ -46,7 +48,7 @@ const Favorites = ({setFavoriteItems, addToFavorited, favoriteItems}) => {
       <div className='favorited'>
           <h1 className='head'>{t("YourFavorites")}</h1>
           {
-            itemsList.length
+            favoriteItems.length
               ?
             <div className='grid-list-items'>
               {items}

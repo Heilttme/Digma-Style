@@ -34,9 +34,8 @@ function App() {
 
   const isLoggedin = useSelector(state => state.user.isLoggedin)
   const email = useSelector(state => state.user.email)
-  const cart = useSelector(state => state.user.cart)
-  const favItemsObj = useSelector(state => state.user.favorited)
-  const favItemsList = Object.values(favItemsObj)
+  // const favItemsObj = useSelector(state => state.user.favorited)
+  // const favItemsList = Object.values(favItemsObj)
   const theme = useSelector(state => state.ui.theme)
   const dispatch = useDispatch()
 
@@ -87,11 +86,11 @@ function App() {
         Object.keys(newCart).forEach(k => {
           newCartToSet = {...newCartToSet, [k]: {...itemsState.filter(item => item.id == k.split("-")[0])[0], quantity: newCart[k].quantity, size: newCart[k].size}}
         })
-        dispatch(userActions.setCart(newCartToSet))
+        setCartItems(Object.values(newCartToSet))
       }
     }
     setParsedCart()
-  }, [isLoggedin, email, itemsState, cartItems])
+  }, [isLoggedin, email, itemsState])
 
   useEffect(() => {
     const setParsedFavorited = async () => {
@@ -101,7 +100,6 @@ function App() {
         Object.keys(newFavorited).forEach(k => {
           newFavorited = {...newFavorited, [k]: {...itemsState.filter(item => item.id == k)[0]}}
         })
-        dispatch(userActions.setFavorited({...newFavorited}))
         setFavoriteItems(Object.values(newFavorited))
       }
     }
@@ -115,7 +113,6 @@ function App() {
       .then(data => {
         const checkIfItemIsAlreadyInFavorited = () => {
           for (let i = 0; i < favoriteItems.length; i++) {
-            // console.log(favoriteItems);
             if (favoriteItems[i].id === itemData.id) {
               return true
             }
@@ -124,8 +121,6 @@ function App() {
         }
         
         if (!checkIfItemIsAlreadyInFavorited()){
-          // console.log("added");
-          dispatch(userActions.setFavorited({[itemData.id]: {...itemData}}))
           setFavoriteItems(prev => [...prev, {...itemData}])
 
           setFavoriteAnimated(true)
@@ -142,7 +137,7 @@ function App() {
             }
             return newArr
           })
-          dispatch(userActions.removeFavorited(itemData))
+          // dispatch(userActions.removeFavorited(itemData))
 
           // setFavoriteCancelAnimated(true)
           // setTimeouts(prev => [prev, setTimeout(() => {
@@ -157,30 +152,26 @@ function App() {
     timeouts.forEach(el => clearTimeout(el))
     if (itemData.size !== null && itemData.size !== "Select size"){
       if (isLoggedin) {
-        const res = axios.post("/authentication/set_cart/", {quantity: 1, ...itemData, size: itemData.size, email})
-          .then(data => {
-            const checkIfItemIsAlreadyInCart = () => {
-              for (let i = 0; i < newCartItems.length; i++){
-                if (newCartItems[i].id === itemData.id && newCartItems[i].size === itemData.size){
-                  return true
-                }
-              }
+        const checkIfItemIsAlreadyInCart = () => {
+          for (let i = 0; i < cartItems.length; i++){
+            if (cartItems[i].id === itemData.id && cartItems[i].size === itemData.size){
+              return true
             }
-            const newCartItems = [...cartItems] 
-            if (!checkIfItemIsAlreadyInCart()){
-              dispatch(userActions.addItemToCart({...itemData, quantity: 1}))
-              setCartItems(prev => [...prev, {...itemData, quantity: 1}]) 
-              setCartAnimated(true)
-              setTimeouts(prev => [prev, setTimeout(() => {
-                setCartAnimated(false)
-              }, 1000)])
-            } else {
-              setCartCancelAnimated(true)
-              setTimeouts(prev => [prev, setTimeout(() => {
-                setCartCancelAnimated(false)
-              }, 50)])
-            }
-          })
+          }
+        }
+        if (!checkIfItemIsAlreadyInCart()){
+          setCartItems(prev => [...prev, {...itemData, quantity: 1}]) 
+          setCartAnimated(true)
+          setTimeouts(prev => [prev, setTimeout(() => {
+            setCartAnimated(false)
+          }, 1000)])
+          const res = axios.post("/authentication/set_cart/", {quantity: 1, ...itemData, size: itemData.size, email})
+        } else {
+          setCartCancelAnimated(true)
+          setTimeouts(prev => [prev, setTimeout(() => {
+            setCartCancelAnimated(false)
+          }, 50)])
+        }
       } else {
         if (sessionStorage.getItem(`${itemData.id}-${itemData.size}`)){
           setCartCancelAnimated(true)
@@ -225,12 +216,10 @@ function App() {
                                                     cartCancelAnimated={cartCancelAnimated}
                                                     favoriteAnimated={favoriteAnimated}
                                                     favoriteCancelAnimated={favoriteCancelAnimated}
-                                                    favItemsList={favItemsList}
                                               />} />
             <Route path="/login" element={<Login setUser={setUser} />}/>
             <Route path="/sign_up" element={<SignUp setUser={setUser} />}/>
-            <Route path="/cart" element={<Cart cart={cart}
-                                               cartItems={cartItems} 
+            <Route path="/cart" element={<Cart cartItems={cartItems} 
                                                setCartItems={setCartItems}/>}
             />
             <Route path="/feautured" element={<Favorites favoriteItems={favoriteItems} 

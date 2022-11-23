@@ -185,7 +185,6 @@ class LogInView(APIView):
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
             user = list(user)[0]
-            print(user.get_password_reset_url())
 
             return Response({"post": {"username": user.username, "email": user.email, "first_name": user.first_name, "last_name": user.last_name, "gender": user.gender}}, status=status.HTTP_200_OK)
 

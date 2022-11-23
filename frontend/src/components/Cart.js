@@ -7,19 +7,19 @@ import { userActions } from '../store/userSlice';
 import bag from "../images/bag.svg"
 import axios from 'axios';
 import { t } from 'i18next'
+import { Link } from 'react-router-dom';
 
-export const Cart = ({cart, cartItems, setCartItems}) => {
+export const Cart = ({cartItems, setCartItems}) => {
     const isLoggedin = useSelector(state => state.user.isLoggedin)
     const email = useSelector(state => state.user.email)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         if (isLoggedin) {
             if (!cartItems.length) {
-                Object.keys(cart).forEach(key => {
-                    const item = cart[key]
-                    setCartItems(prev => ([...prev, {...item, quantity: item.quantity}]))
-                })
+                // Object.keys(cart).forEach(key => {
+                //     const item = cart[key]
+                //     setCartItems(prev => ([...prev, {...item, quantity: item.quantity}]))
+                // })
             }
         } else {
             if (sessionStorage) {
@@ -31,36 +31,32 @@ export const Cart = ({cart, cartItems, setCartItems}) => {
                 setCartItems(newCart)
             }
         }
-    }, [cart, isLoggedin]) // cart
+    }, [isLoggedin]) // cart
 
     const changeQuantityStateBackEndDec = (item) => {
-        dispatch(userActions.setCart({...cart, [item.id]: {...cart[item.id], quantity: item.quantity}}))
         setCartItems(prev => prev.map(el => (el.id === item.id && el.size === item.size) ? {...item, quantity: item.quantity - 1 > 1 ? item.quantity - 1 : 1} : el))
         const res = axios.post("/authentication/set_quantity/", {id: item.id, quantity: item.quantity - 1 > 1 ? item.quantity - 1 : 1, email, size: item.size})
     }
 
     const changeQuantityStateBackEndAdd = (item) => {
-        dispatch(userActions.setCart({...cart, [item.id]: {...cart[item.id], quantity: item.quantity}}))
         setCartItems(prev => prev.map(el => (el.id === item.id && el.size === item.size) ? {...item, quantity: item.quantity + 1 > 99 ? 99 : item.quantity + 1 } : el))
         const res = axios.post("/authentication/set_quantity/", {id: item.id, quantity: item.quantity + 1 > 99 ? 99 : item.quantity + 1, email, size: item.size})
     }
 
     const changeQuantityManuallyBackEnd = (item, quantity) => {
-        dispatch(userActions.setCart({...cart, [item.id]: {...cart[item.id], quantity}}))
         setCartItems(prev => prev.map(el => (el.id === item.id && el.size === item.size) ? {...item, quantity} : el))
         const res = axios.post("/authentication/set_quantity/", {id: item.id, quantity, email, size: item.size})
     }
 
     const setNewSizeBackEnd = (item, size) => {
         const res = axios.post("/authentication/set_cart_size/", {id: item.id, sizeToSet: size, curSize: item.size, email})
-        dispatch(userActions.setCart({...cart, [item.id]: {...cart[item.id], size}}))
         setCartItems(prev => prev.map(elem => (elem.id === item.id && elem.size === item.size) ? {...item, size} : elem))
     }
 
     const removeItem = (id, size) => {
         if (isLoggedin) {
             const res = axios.post("/authentication/delete_item/", {email, id, size})
-                .then(data => data.data.cart === "deleted successfully" && setCartItems(prev => {
+                .then(data => data.status === 200 && setCartItems(prev => {
                    let arr = []
                    prev.map(item => {
                     if (item.id !== id){
@@ -85,8 +81,6 @@ export const Cart = ({cart, cartItems, setCartItems}) => {
             }
         }
     }
-
-    // console.log(cartItems);
 
     const items = cartItems && cartItems.map(item => {
         return isLoggedin ? 
@@ -158,7 +152,7 @@ const EmptyCart = () => {
         <div className='right-col'>
             <p>{t("WhoopsEmptyCart")}</p>
             <div className='cta-buttons'>
-                <a>{t("BrowseItems")}</a>
+                <Link to="/browse">{t("BrowseItems")}</Link>
             </div>
         </div>
     </div>

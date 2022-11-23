@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userActions } from '../store/userSlice'
 import axios from 'axios'
 
-const FavCard = ({item, itemsList, removeFromFavorited, setFavoriteItems, setRemovedItemsPopUps}) => {
+const FavCard = ({item, favoriteItems, removeFromFavorited, setFavoriteItems, setRemovedItemsPopUps}) => {
     const imgUrl = item.pictures[0]
     const id = item.id
     const brand = item.brand
@@ -24,22 +24,21 @@ const FavCard = ({item, itemsList, removeFromFavorited, setFavoriteItems, setRem
     const [exited, setExited] = useState(false)
 
     const email = useSelector(state => state.user.email)
-    const dispatch = useDispatch()
 
-    const removeFromDomAnimation = () => {
-        setRemoved(true)
-        setTimeout(() => {
-          setExited(true)
-        }, 200)
-        setTimeout(() => {
-        //   removeItem(item.id, item.size)
-        }, 400)
-      }
+    // const removeFromDomAnimation = () => {
+    //     setRemoved(true)
+    //     setTimeout(() => {
+    //       setExited(true)
+    //     }, 200)
+    //     setTimeout(() => {
+    //     //   removeItem(item.id, item.size)
+    //     }, 400)
+    //}
  
     const addToFavorited = () => {
         const checkIfItemIsInItemsList = () => {
-            for (let i = 0; i < itemsList.length; i++) {
-                if (itemsList[i].id === id) {
+            for (let i = 0; i < favoriteItems.length; i++) {
+                if (favoriteItems[i].id === id) {
                     return true
                 }
                 }
@@ -54,29 +53,31 @@ const FavCard = ({item, itemsList, removeFromFavorited, setFavoriteItems, setRem
             setTimeout(() => {
                 let itemsObj = {}
                 let itemsObjToDb = {}
-                for (let i = 0; i < itemsList.length; i++){
-                    if (itemsList[i].id !== id){
-                        itemsObj = {...itemsObj, [itemsList[i].id]: itemsList[i]}
-                        itemsObjToDb = {...itemsObjToDb, [itemsList[i].id]: itemsList[i].id}
+                for (let i = 0; i < favoriteItems.length; i++){
+                    if (favoriteItems[i].id !== id){
+                        itemsObj = {...itemsObj, [favoriteItems[i].id]: favoriteItems[i]}
+                        itemsObjToDb = {...itemsObjToDb, [favoriteItems[i].id]: favoriteItems[i].id}
                     }
                 }
                 const res = email && itemsObjToDb && axios.post("/authentication/set_favorited/", {favorited: itemsObjToDb, email})
-                dispatch(userActions.setNewFavorited(itemsObj))
-                setRemovedItemsPopUps(prev => [...prev, itemsList.filter(el => el.id === id)[0]])
+                // setRemovedItemsPopUps(prev => [...prev, favoriteItems.filter(el => el.id === id)[0]])
             }, 350)
         } else {
             setRemovedHeart(false)
             setHeartHovered(true)
+            setRemovedItemsPopUps(prev => [...prev, favoriteItems.filter(el => el.id === id)[0]])
             setFavoriteItems(prev => {
                 const newArr = []
+                let itemsObjToDb = {}
                 for (let i = 0; i < prev.length; i++){
                   if (prev[i].id !== item.id) {
                     newArr.push(prev[i])
-                  }
+                    itemsObjToDb = {...itemsObjToDb, [prev[i].id]: prev[i].id}
                 }
+                }
+                const res = email && itemsObjToDb && axios.post("/authentication/set_favorited/", {favorited: itemsObjToDb, email})
                 return newArr
               })
-            dispatch(userActions.removeFavorited(item))
         }
     }
 

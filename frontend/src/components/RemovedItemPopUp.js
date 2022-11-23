@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import heart from "../images/heart.svg"
 import filledHeart from "../images/filled_heart.svg"
 import { AnimatePresence, motion } from 'framer-motion'
@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux'
 
 const RemovedItemPopUp = ({item, setRemovedItemsPopUps, addToFavorited}) => {
   const [heartHovered, setHeartHovered] = useState(false)
-  const [itemRemoved, setItemRemoved] = useState(false)
-  const favorited = useSelector(state => state.user.favorited)
+  const [itemRemoved, setItemRemoved] = (useState(false))
 
   setTimeout(() => {
     setItemRemoved(true)

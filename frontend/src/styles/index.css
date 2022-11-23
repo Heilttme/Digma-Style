@@ -883,6 +883,7 @@ header nav .ul-header .login-language-card-liked .login {
 .footer {
   background-color: #1a1a1a;
   width: 100%;
+  color: white;
 }
 .footer li {
   list-style: none;

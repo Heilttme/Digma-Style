@@ -1,6 +1,7 @@
 import React from 'react'
 import {motion} from "framer-motion"
 import { t } from 'i18next'
+import { Link } from 'react-router-dom'
 
 const Explore = ({align, imgUrl, title, info, delay}) => {
 
@@ -17,7 +18,7 @@ const Explore = ({align, imgUrl, title, info, delay}) => {
                         <div className='text-col'>
                             <h1>{title}</h1>
                             <p>{info}</p>
-                            <a href='#'>{t("Shop")}</a>
+                            <Link to='/browse/amiri'>{t("Shop")}</Link>
                         </div>
                     </>
             :
