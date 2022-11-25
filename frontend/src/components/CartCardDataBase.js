@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, } from "react-router-dom"
 import { v4 as uuidv4 } from 'uuid';
@@ -6,17 +6,27 @@ import { AnimatePresence, motion } from "framer-motion"
 import ArrowSelect from './ArrowSelect'
 import { t } from "i18next"
 
-const CartCardDataBase = ({item, setNewSizeBackEnd, changeQuantityStateBackEndDec, changeQuantityStateBackEndAdd, removeItem, changeQuantityManuallyBackEnd}) => {
+const CartCardDataBase = ({itemsState, cartItems, item, setNewSizeBackEnd, changeQuantityStateBackEndDec, changeQuantityStateBackEndAdd, removeItem, changeQuantityManuallyBackEnd}) => {
   const [interManualCount, setInterManualCount] = useState(item.quantity)
   const [removed, setRemoved] = useState(false)
   const [exited, setExited] = useState(false)
   const [sizesShown, setSizesShown] = useState(false)
   const [newSize, setNewSize] = useState(item.size)
+  const [allowedSizes, setAllowedSizes] = useState([])
 
   const email = useSelector(state => state.user.email)
 
   const theme = useSelector(state => state.ui.theme)
 
+  useEffect(() => {
+    let otherSizes = item.sizes.split(";")
+    let unallowedSizes = cartItems.filter(elem => elem.id === item.id && elem.size !== item.size)
+    if (unallowedSizes.length){
+      unallowedSizes.map(elem => otherSizes.includes(elem.size) && otherSizes.splice(otherSizes.indexOf(elem.size), 1))
+    }
+    setAllowedSizes(otherSizes)
+  }, [])
+  
   const setQuantityManually = (value) => {
     let quantityValue = value === "" ? 1 : value
     quantityValue = parseInt(quantityValue) > 1 ? parseInt(quantityValue) : 1
@@ -69,7 +79,7 @@ const CartCardDataBase = ({item, setNewSizeBackEnd, changeQuantityStateBackEndDe
                         exit={{opacity: 0, y: "-50%", transition: {duration: "0.15"}}}
                         className="options"
                       >
-                        {item.sizes.split(";").map(el => newSize && (newSize !== el && <option key={uuidv4()} onClick={() => {
+                        {allowedSizes.map(el => newSize && (newSize !== el && <option key={uuidv4()} onClick={() => {
                           setNewSizeBackEnd(item, el)
                           setNewSize(el)
                           setSizesShown(false)

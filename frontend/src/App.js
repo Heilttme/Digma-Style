@@ -220,6 +220,7 @@ function App() {
             <Route path="/login" element={<Login setUser={setUser} />}/>
             <Route path="/sign_up" element={<SignUp setUser={setUser} />}/>
             <Route path="/cart" element={<Cart cartItems={cartItems} 
+                                               itemsState={itemsState}
                                                setCartItems={setCartItems}/>}
             />
             <Route path="/feautured" element={<Favorites favoriteItems={favoriteItems} 

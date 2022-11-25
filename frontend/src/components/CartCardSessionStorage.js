@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, } from "react-router-dom"
 import { AnimatePresence, motion } from "framer-motion"
 import { v4 as uuidv4 } from 'uuid'
@@ -6,14 +6,24 @@ import ArrowSelect from './ArrowSelect'
 import { t } from 'i18next'
 import { useSelector } from 'react-redux'
 
-export const CartCardSessionStorage = ({item, setCartItems, removeItem, cartItems}) => {
+export const CartCardSessionStorage = ({itemsState, item, setCartItems, removeItem, cartItems}) => {
   const [interManualCount, setInterManualCount] = useState(item.quantity)
   const [removed, setRemoved] = useState(false)
   const [exited, setExited] = useState(false)
   const [sizesShown, setSizesShown] = useState(false)
   const [newSize, setNewSize] = useState(item.size)
+  const [allowedSizes, setAllowedSizes] = useState([])
 
   const theme = useSelector(state => state.ui.theme)
+
+  useEffect(() => {
+    let otherSizes = item.sizes.split(";")
+    let unallowedSizes = cartItems.filter(elem => elem.id === item.id && elem.size !== item.size)
+    if (unallowedSizes.length){
+      unallowedSizes.map(elem => otherSizes.includes(elem.size) && otherSizes.splice(otherSizes.indexOf(elem.size), 1))
+    }
+    setAllowedSizes(otherSizes)
+  }, [])
 
   const setQuantityManually = (value) => {
     let quantityValue = value === "" ? 1 : value
@@ -74,7 +84,7 @@ export const CartCardSessionStorage = ({item, setCartItems, removeItem, cartItem
                         exit={{opacity: 0, y: "-50%", transition: {duration: "0.15"}}}
                         className="options"
                       >
-                        {item.sizes.split(";").map(el => newSize && (newSize !== el && <option key={uuidv4()} onClick={() => {
+                        {allowedSizes.map(el => newSize && (newSize !== el && <option key={uuidv4()} onClick={() => {
                           setNewSize(el)
                           setSizesShown(false)
                           sessionStorage.removeItem(`${item.id}-${item.size}`)

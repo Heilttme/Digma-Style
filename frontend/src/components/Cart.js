@@ -9,7 +9,7 @@ import axios from 'axios';
 import { t } from 'i18next'
 import { Link } from 'react-router-dom';
 
-export const Cart = ({cartItems, setCartItems}) => {
+export const Cart = ({itemsState, cartItems, setCartItems}) => {
     const isLoggedin = useSelector(state => state.user.isLoggedin)
     const email = useSelector(state => state.user.email)
 
@@ -87,6 +87,8 @@ export const Cart = ({cartItems, setCartItems}) => {
                 <CartCardDataBase 
                   key={uuidv4()} 
                   item={item} 
+                  cartItems={cartItems}
+                  itemsState={itemsState}
                   changeQuantityStateBackEndDec={changeQuantityStateBackEndDec} 
                   changeQuantityStateBackEndAdd={changeQuantityStateBackEndAdd} 
                   removeItem={removeItem} 
@@ -98,6 +100,7 @@ export const Cart = ({cartItems, setCartItems}) => {
                 <CartCardSessionStorage
                   key={uuidv4()}
                   item={item} 
+                  itemsState={itemsState}
                   setCartItems={setCartItems} 
                   cartItems={cartItems}
                   removeItem={removeItem} 

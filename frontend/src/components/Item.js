@@ -76,7 +76,7 @@ function Item({addToCart, addToFavorited, cartAnimated, cartCancelAnimated, favo
             onClick={unsetModel}
             className='model-image'
           >
-            <ImageMagnifier onClick={() => console.log("312123")} src={require(`../images/clothes/${modelImg}`)}/>
+            <ImageMagnifier src={require(`../images/clothes/${modelImg}`)}/>
           </motion.div>
         }
       </AnimatePresence>
@@ -184,6 +184,7 @@ const ImageMagnifier = ({
         maxHeight: 600,
         width: width
       }}
+      onClick={(e) => e.stopPropagation()}
     >
       <img
         src={src}

@@ -128,3 +128,56 @@
         }
     }
 }
+
+
+@media (max-width: 1200px) {
+    .login{
+        .wrapper{
+            width: 40%;
+        } 
+    }
+}
+
+@media (max-width: 1000px) {
+    .login{
+        .wrapper{
+            width: 50%;
+        } 
+    }
+}
+
+@media (max-width: 780px) {
+    .login{
+        .wrapper{
+            width: 65%;
+        } 
+    }
+}
+
+@media (max-width: 650px) {
+    .login{
+        .wrapper{
+            width: 75%;
+        } 
+    }
+}
+
+@media (max-width: 570px) {
+    .login{
+        .wrapper{
+            width: 95%;
+        } 
+    }
+}
+
+@media (max-width: 420px) {
+    .login{
+        .form{
+            .password-remember{
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-bottom: .5rem;
+            }
+        }
+    }
+}

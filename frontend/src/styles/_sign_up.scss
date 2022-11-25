@@ -92,3 +92,43 @@
         margin-top: .6rem;
     }
 }
+
+@media (max-width: 1200px) {
+    .sign-up{
+        .wrapper{
+            width: 40%;
+        } 
+    }
+}
+
+@media (max-width: 1000px) {
+    .sign-up{
+        .wrapper{
+            width: 50%;
+        } 
+    }
+}
+
+@media (max-width: 780px) {
+    .sign-up{
+        .wrapper{
+            width: 65%;
+        } 
+    }
+}
+
+@media (max-width: 650px) {
+    .sign-up{
+        .wrapper{
+            width: 75%;
+        } 
+    }
+}
+
+@media (max-width: 570px) {
+    .sign-up{
+        .wrapper{
+            width: 95%;
+        } 
+    }
+}
