@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import magnifier from "../images/magnifier.svg"
-import heart from "../images/heart.svg"
-import cart from "../images/cart.svg"
+import React, { useState, useEffect, useRef } from 'react'
 import russianFlag from "../images/russian_flag.svg"
 import ukFlag from "../images/uk_flag.svg"
-import { Link, Navigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { motion, AnimatePresence } from 'framer-motion'
 import {useSelector, useDispatch} from "react-redux"
-import userSlice, { userActions } from '../store/userSlice'
+import { userActions } from '../store/userSlice'
 import SearchItems from "./SearchItems"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +18,8 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
   const [browseHovered, setBrowseHovered] = useState(false)
   const [navigateToSearch, setNavigateToSearch] = useState(false)
   const [menu, setMenu] = useState(false)
-
+  const [isSearch, setIsSearch] = useState(false)
+  
   const [searchFocused, setSearchFocused] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
@@ -32,6 +30,8 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
   const username = useSelector(state => state.user.isLoggedin ? state.user.username : "")
   const isLoggedin = useSelector(state => state.user.isLoggedin)
 
+  const searchRef = useRef(null)
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -68,15 +68,31 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
   return (
     <header className={`${theme}-bg`}>
       <div className='menu-search-wrapper'>
-        <div onClick={() => setMenu(prev => !prev)} className="wrapper-hamburger">
+        <div onClick={() => setMenu(prev => !prev)} className="wrapper-hamburger" style={isSearch ? {visibility: "hidden"} : {}}>
           <div className={`hamburger-menu ${theme}`}></div>
         </div>
         <ul className='ul-search'>
           <li className='search-container'>
             <li
               className='li-magnifier'
-              onClick={() => setNavigateToSearch(true)}
-            ><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"/></svg></li>
+            >
+              <svg onClick={() => {setIsSearch(prev => !prev);searchRef.current.focus()}} fill="currentColor" xmlns="http://www.w3.org/2000/svg" style={isSearch ? {visibility: "hidden"} : {}} width="24" height="24" viewBox="0 0 24 24"><path d="M21.172 24l-7.387-7.387c-1.388.874-3.024 1.387-4.785 1.387-4.971 0-9-4.029-9-9s4.029-9 9-9 9 4.029 9 9c0 1.761-.514 3.398-1.387 4.785l7.387 7.387-2.828 2.828zm-12.172-8c3.859 0 7-3.14 7-7s-3.141-7-7-7-7 3.14-7 7 3.141 7 7 7z"/></svg>
+              <motion.input 
+                ref={searchRef}
+                className={`${theme}-bg`}
+                initial={{width: 0}}
+                animate={{width: isSearch ? "88vw" : "0", x: isSearch ? "0" : "-10rem"}}
+                transition={{type: "keyframes"}}
+                onFocus={() => {setFadeScreen(true); setTimeout(() => setSearchFocused(true), 400)}}
+                onBlur={() => {setFadeScreen(false); setTimeout(() => setSearchFocused(false), 400); setIsSearch(false)}}
+                onChange={(e) => setSearchValue(e.target.value.toLowerCase())}
+                onKeyDown={(event) => {
+                  if(event.key === 'Enter') {
+                    setNavigateToSearch(true)
+                  }
+                }}
+              />
+            </li>
             <AnimatePresence>
             {searchValue && searchFocused && 
                 <SearchItems setSearchValue={setSearchValue} itemsState={itemsState} searchValue={searchValue}/>
@@ -85,13 +101,14 @@ function Header({itemsState, setFadeScreen, changeLanguage, i18n}) {
           </li>
         </ul>
       </div>
-      <div className='like-cart-wrapper'>
+      <div className='like-cart-wrapper' style={isSearch ? {display: "none"} : {}}>
         <Link className={`cta-cart ${theme}-hover`} to='/cart'><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm-10.563-5l-2.937-7h16.812l-1.977 7h-11.898zm11.233-5h-11.162l1.259 3h9.056l.847-3zm5.635-5l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"/></svg></Link>
         <Link className={`cta-like ${theme}-hover`} to='/feautured'><svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 9.229c.234-1.12 1.547-6.229 5.382-6.229 2.22 0 4.618 1.551 4.618 5.003 0 3.907-3.627 8.47-10 12.629-6.373-4.159-10-8.722-10-12.629 0-3.484 2.369-5.005 4.577-5.005 3.923 0 5.145 5.126 5.423 6.231zm-12-1.226c0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-7.962-9.648-9.028-12-3.737-2.338-5.262-12-4.27-12 3.737z"/></svg></Link>
       </div>
-      <a href='#' className='mobile-logo'>Digma Style</a>
+      <a href='#' className='mobile-logo' style={isSearch ? {visibility: "hidden"} : {}}>Digma Style</a>
       <motion.nav
-        animate={menu ? {width: "105vw"} : {width: "0vw", opacity: 0}}
+        initial={{width: 0}}
+        animate={menu ? {width: "105vw"} : {width: "0", opacity: 0}}
         transition={{opacity: {duration: .3}}}
         className={`mobile ${theme}-bg`}
       >

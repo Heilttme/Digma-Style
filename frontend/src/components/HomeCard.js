@@ -5,7 +5,7 @@ import filledHeart from "../images/filled_heart.svg"
 import { motion } from "framer-motion"
 import { useSelector } from "react-redux"
  
-function HomeCard({item, addToFavorited}) {
+function HomeCard({setAddedToFavoritesPopUp, item, addToFavorited}) {
   const imgUrl = item.pictures[0]
   const brand = item.brand
   const name = item.name
@@ -52,6 +52,7 @@ function HomeCard({item, addToFavorited}) {
               onMouseLeave={() => setHeartHovered(false)}
               onClick={() => {
                 addToFavorited(item)
+                setAddedToFavoritesPopUp(prev => [...prev, item])
               }}
             >
               <img src={heart}></img>

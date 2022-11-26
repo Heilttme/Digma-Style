@@ -40,7 +40,7 @@ const SearchItems = ({itemsState, searchValue, setSearchValue}) => {
   
   return (
     <motion.ul 
-      exit={{opacity: 0, y: "-50%", transition: {opacity: {duration: .1}, duration: 0.15}}}
+      exit={{opacity: 0, y: "-50%", transition: {duration: 0.1}}}
       className='search-items'>
       {items}
     </motion.ul>

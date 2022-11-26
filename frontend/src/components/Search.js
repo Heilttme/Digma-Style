@@ -18,6 +18,8 @@ const Search = ({itemsState, addToFavorited, addToCart}) => {
     colours: [],
     prices: {start: null, end: null},
   })
+  const [filterToggler, setFilterToggler] = useState(false)
+
 
   const [categoryShown, setCategoryShown] = useState(false)
   const [brandShown, setBrandShown] = useState(false)
@@ -86,7 +88,11 @@ const Search = ({itemsState, addToFavorited, addToCart}) => {
 
   return (
     <div className='search-menu'>
-      <div className='filters-wrapper'>
+      <motion.div
+        initial={{height: "0"}}
+        animate={{height: filterToggler ? "100%" : "0"}}
+        transition={{type: "keyframes"}}
+        className='filters-wrapper'>
         <div className='filters-header'>
           <h2>{t("FilterBy")}</h2>
           <button 
@@ -235,11 +241,14 @@ const Search = ({itemsState, addToFavorited, addToCart}) => {
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
       <div className='items-col'>
         <div className='text'>
-          <h2 className='query-h'>{queries[0]}</h2>
-          <span className='results'>{filteredItems.length} {filteredItems.length === 1 ? t("Result") : t("Results")}</span>
+          <span className='results-wrapper'>
+            <h2 className='query-h'>{queries[0]}</h2>
+            <span className='results'>{filteredItems.length} {filteredItems.length === 1 ? t("Result") : t("Results")}</span>
+          </span>
+          <svg fill='currentColor' onClick={() => setFilterToggler(prev => !prev)} className='filter-toggler' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 18h-2v5h-2v-5h-2v-3h6v3zm-2-17h-2v12h2v-12zm11 7h-6v3h2v12h2v-12h2v-3zm-2-7h-2v5h2v-5zm11 14h-6v3h2v5h2v-5h2v-3zm-2-14h-2v12h2v-12z"/></svg>
         </div>
         <div className='items'>
           {filteredItems.map(elem => <HomeCard addToFavorited={addToFavorited} addToCart={addToCart} key={elem.id} item={elem}/>)}

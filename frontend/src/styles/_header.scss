@@ -11,6 +11,7 @@ a{
 
 header{
     width: 100%;
+    padding-bottom: 1.5rem;
     position: sticky;
     z-index: 100000;
     top: 0;
@@ -103,7 +104,7 @@ header{
                     
                 }
                     
-                    .ul-search{
+                .ul-search{
                     margin-left: 4rem;
                     display: flex;
                     align-items: center;
@@ -290,7 +291,7 @@ header{
 .wrapper-hamburger{
     cursor: pointer;
     padding: .7rem 1rem;
-    z-index: 1000000;
+    z-index: 1000;
     
     .hamburger-menu{
         width: 28px;
@@ -344,8 +345,28 @@ header{
     display: none;
 }
 
+@media (max-width: 1350px) {
+    header{
+        nav{
+            .ul-header{
+                .search{
+                    .ul-search{
+                        margin-left: 1rem;
+                    }
+                }
+            }
+        }
+    }
 
-@media (max-width: 1000px) {
+    .closed{
+        width: 100%;
+        margin-left: 5rem;
+
+    }
+}
+
+
+@media (max-width: 1100px) {
     .mobile-logo{
         display: block;
         font-size: 2em;
@@ -425,6 +446,44 @@ header{
         top: 2.3rem;
         display: flex;
 
+
+        .ul-search{
+            .search-container{
+                .li-magnifier{
+                    svg{
+                        cursor: pointer;
+                    }
+                    
+                    input{
+                        z-index: 1000;
+                        position: absolute;
+                        overflow: hidden;
+                        left: .8rem;
+                        height: 30px;
+                    }
+
+                }
+                
+                .search-items{
+                    position: absolute;
+                    top: 3rem;
+                    left: 1rem;
+                    width: 85vw;
+
+                    .search-card{
+                        display: flex;
+                        justify-content: start;
+                        align-items: center;
+                        padding: 1rem .6rem;
+                        margin-top: .3rem;
+                        width: 85vw;
+                        text-align: left;
+                        text-overflow: ellipsis;
+
+                    }
+                }
+            }
+        }
     }
 
     .like-cart-wrapper{
@@ -432,7 +491,7 @@ header{
         gap: .1rem;
         position: absolute;
         right: 2rem;
-        top: 2rem;
+        top: 1.8rem;
 
         .cta-like, .cta-cart{
             padding: .4rem;
@@ -443,5 +502,150 @@ header{
                 border-radius: 50%;
             }
         }
+    }
+}
+
+@media (max-width: 500px) {
+    .mobile-logo{
+        margin-top: 2.4rem;
+        font-size: 1.5em;
+    }
+
+    .menu-search-wrapper{
+        left: .2rem;
+    }
+
+    .like-cart-wrapper{
+        right: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .mobile-logo{
+        margin-top: 2.3rem;
+        font-size: 1.3em;
+    }
+
+    .menu-search-wrapper{
+        left: 0rem;
+    }
+
+    .like-cart-wrapper{
+        right: .7rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .mobile-logo{
+        margin-top: 2.3rem;
+        font-size: 1.3em;
+    }
+
+    .menu-search-wrapper{
+        left: 0rem;
+    }
+
+    .like-cart-wrapper{
+        right: .7rem;
+    }
+
+    header{
+        svg{
+            width: 18px;
+        }
+    }
+
+
+    .wrapper-hamburger{
+        padding: .7rem 0rem;
+        padding-left: .6rem;
+        padding-right: .6rem;
+
+        .hamburger-menu{
+            width: 22px;
+            height: 2px;
+
+            &::after{
+                width: 17px;
+                height: 2px;
+                top: 19px;
+            }
+            
+            &::before{
+                width: 22px;
+                height: 2px;
+                top: 3px;
+            }
+        }
+    }
+
+    .like-cart-wrapper{
+        right: .1rem;
+        
+        .cta-like, .cta-cart{
+            margin-top: .15rem;
+            padding: unset;
+            padding-left: .4rem;
+            padding-right: .4rem;
+            padding-top: .4rem;
+            transition: all .2s ease-in-out;
+    
+            &:hover{
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+@media (max-width: 300px) {
+    .mobile-logo{
+        margin-top: 2.6rem;
+        font-size: 1em;
+    }
+
+    header{
+        svg{
+            width: 14px;
+        }
+    }
+
+    .like-cart-wrapper{
+        .cta-like, .cta-cart{
+            margin-top: .45rem;
+            padding: unset;
+            padding-left: .3rem;
+            padding-right: .3rem;
+            padding-top: .1rem;
+            transition: all .2s ease-in-out;
+    
+            &:hover{
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .wrapper-hamburger{
+        .hamburger-menu{
+            width: 20px;
+            height: 2px;
+
+            &::after{
+                width: 15px;
+                height: 2px;
+                top: 17px;
+            }
+            
+            &::before{
+                width: 20px;
+                height: 2px;
+                top: 5px;
+            }
+        }
+    }
+}
+
+@media (max-width: 250px) {
+    .mobile-logo{
+        font-size: .9em;
     }
 }
